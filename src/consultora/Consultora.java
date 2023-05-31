@@ -299,27 +299,30 @@ public class Consultora implements Serializable {
         }
     }
 
-    //FRANCO guardar en un txt TODOS los analistas
+    //Guarda los objetos analistas en una base de datos (TXT)
     public static void baseDeDatosAnalista(Analista ana) throws FileNotFoundException, IOException {
         try {
             // Crear un FileOutputStream para escribir en el archivo
-            FileOutputStream fileOutputStream = new FileOutputStream("analistas.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream("analistas.txt", true);
 
             // Crear un ObjectOutputStream para escribir el objeto en el FileOutputStream
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
             // Escribir el objeto en el archivo
             objectOutputStream.writeObject(ana);
+            
+            // Agregar una nueva línea al final de cada objeto
+            fileOutputStream.write("\n".getBytes());
 
             // Cerrar los flujos
             objectOutputStream.close();
             fileOutputStream.close();
 
-            System.out.println("\"El objeto ha sido guardado exitosamente en el archivo");
+            JOptionPane.showMessageDialog(null, "Analista registrado correctamente");
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null,"No se encuentra el archivo " + e.getMessage());
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al guardar el archivo " + e.getMessage());
         }
 
     }
@@ -329,6 +332,7 @@ public class Consultora implements Serializable {
     }
 
     public static void consultarAnalista() {
+        
     }
 
     public static void consultarCliente() {

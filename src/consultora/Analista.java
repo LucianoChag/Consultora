@@ -1,6 +1,8 @@
 package consultora;
 
-public class Analista extends Trabajador{
+import java.io.Serializable;
+
+public class Analista extends Trabajador implements Serializable{
     private int categoria;
 
     public Analista(String nombre, String legajo) {
