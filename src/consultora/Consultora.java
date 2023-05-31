@@ -210,26 +210,74 @@ public class Consultora {
 
     //JUAN X        
     public static void registrarCliente(Map<String, Cliente> clientes) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Cliente: ");
-        String nombre = sc.next();
-        System.out.println("Direccion: ");
-        String direccion = sc.next();
-        System.out.println("Precio a cobrar por hora: ");
-        double pxh = sc.nextDouble();
-        Cliente cliente = new Cliente(nombre, direccion, pxh);
+         // Obtener los datos del programador desde la interfaz gráfica
+        Cliente cliente = clienteInterfaz();
+
+        clientes.put(cliente.getNombre(), cliente);
 
     }
 
     //JUAN X
-    public static Cliente interfazCliente() {
-        return null;
+    public static Cliente clienteInterfaz() {
+        
+        // Crear un JFrame para mostrar la interfaz
+        JFrame frame = new JFrame("Registrar Cliente");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Crear un JPanel para contener los componentes
+        JPanel panel = new JPanel();
+
+        // Agregar un JLabel para el nombre
+        JLabel nombreLabel = new JLabel("Nombre:");
+        panel.add(nombreLabel);
+
+        // Solicitar el nombre al usuario mediante JOptionPane
+        String nombre = JOptionPane.showInputDialog(frame, "Ingrese nombre del Cliente");
+        JLabel nombreValueLabel = new JLabel(nombre);
+        panel.add(nombreValueLabel);
+
+        // Agregar un JLabel para la direccion
+        JLabel direccionLabel = new JLabel("Direccion:");
+        panel.add(direccionLabel);
+
+        // Solicitar la direccion al usuario mediante JOptionPane
+        String direccion = JOptionPane.showInputDialog(frame, "Agregue la direccion del cliente");
+        JLabel direccionValueLabel = new JLabel(direccion);
+        panel.add(direccionValueLabel);
+
+        // Agregar un JLabel para el precio a cobrar por hora trabajada
+        JLabel PxcobrarLabel = new JLabel("Precio a cobrar por hora:");
+        panel.add(PxcobrarLabel);
+
+        // Solicitar el precio por hora al usuario mediante JOptionPane
+        String PxcobrarString = JOptionPane.showInputDialog(frame, "Ingrese cuanto se le cobrara al cliente por hora");
+        JLabel PxcobrarValueLabel = new JLabel(PxcobrarString);
+        panel.add(PxcobrarValueLabel);
+
+        // Mostrar un JOptionPane con el panel para obtener la selección del usuario
+        int option = JOptionPane.showOptionDialog(
+                frame, panel, "Registrar Cliente",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+
+        if (option == JOptionPane.OK_OPTION) {
+            double Pxcobrar = Double.parseDouble(PxcobrarString);
+
+            // Crear un objeto Programador con los datos ingresados
+            Cliente cliente = new Cliente(nombre, direccion, Pxcobrar);
+
+            frame.dispose();
+            return cliente;
+
+        } else {
+            return null;
+        }
+        
     }
 
     //LUCAS guardar en un txt TODOS los programadores
     public static void baseDeDatosProgramador(String nombre, LocalDate fecha, int horasTrabajadas) {
         try {
-            FileWriter fileWriter = new FileWriter("programadores.txt", true);
+            FileWriter fileWriter = new FileWriter("clientes.txt", true);
             BufferedWriter writer = new BufferedWriter(fileWriter);
 
             writer.write("Programador: " + nombre);
@@ -267,11 +315,10 @@ public class Consultora {
     public static void main(String[] args) {
         Map<String, Analista> analistas = new HashMap<>();
         Map<String, Programador> programadores = new HashMap<>();
-
-        registrarAnalista(analistas);
-        registrarProgramador(programadores);
-        
-        
+        Map<String, Cliente> clientes = new HashMap<>();
+        //registrarAnalista(analistas);
+        //registrarProgramador(programadores);
+        //registrarCliente(clientes);
         
         System.out.println(programadores.get("Pilar").getPxh());//prueba de que funciona el registrarProgramador
 //        double sueldoa1 = calcularSueldoAnalista(analistas, "Luciano");
