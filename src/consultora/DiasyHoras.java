@@ -1,0 +1,6 @@
+package consultora;
+
+
+class DiasyHoras {
+
+}

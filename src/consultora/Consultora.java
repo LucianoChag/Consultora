@@ -3,7 +3,6 @@ package consultora;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,11 +18,13 @@ public class Consultora {
     public static double horaProgramador = 2000;
     public Map<String, Analista> analistas;
     public Map<String, Programador> programadores;
-    public ArrayList<Cliente> clientes;
+    public Map<String, Cliente> clientes;
+    
 
     public Consultora() {
         analistas = new HashMap<>();
         programadores = new HashMap<>();
+        clientes = new HashMap<>();
     }
 
     //Recibe como parametros el HashMap de Analistas y el nombre del analista al que se le quiere calcular el sueldo
@@ -75,6 +76,8 @@ public class Consultora {
         Analista ana = analistaInterfaz();
 
         analistas.put(ana.getNombre(), ana);
+        
+        
     }
 
     public static Analista analistaInterfaz() {
@@ -141,26 +144,21 @@ public class Consultora {
 
     }
 
-    public static void registroDiaProgramador(ArrayList<Trabajador> programadores) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Nombre del programador: ");
-        String nombre = sc.next();
-        //String nombre = programadores.get(0).nombre;
-        System.out.println("Año: ");
-        int año = sc.nextInt();
-        System.out.println("Mes: ");
-        int mes = sc.nextInt();
-        System.out.println("Dia: ");
-        int dia = sc.nextInt();
-        System.out.println("Horas que trabajo: ");
-        int horas = sc.nextInt();
-        LocalDate fecha = LocalDate.of(año, mes, dia);
-
-        registroTXTProgramador(nombre, fecha, horas);
-
+    //LUCIANO
+    public static void registrarProgramador(Map<String, Programador> programadores) {
+        // Obtener los datos del programador desde la interfaz gráfica
+        Programador prog = programadorInterfaz();
+        
+        programadores.put(prog.getNombre(), prog);
+        
     }
+    //LUCIANO
+    public static Programador programadorInterfaz(){
+    return null;
+            }
 
-    public static void registroCliente(ArrayList<Cliente> clientes) {
+    //JUAN X        
+    public static void registrarCliente(Map<String, Cliente> clientes) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Cliente: ");
         String nombre = sc.next();
@@ -169,31 +167,17 @@ public class Consultora {
         System.out.println("Precio a cobrar por hora: ");
         double pxh = sc.nextDouble();
         Cliente cliente = new Cliente(nombre, direccion, pxh);
-        clientes.add(cliente);
-
-        registroTXTCliente(nombre, direccion, pxh);
+        
 
     }
 
-    public static void registroTXTCliente(String nombre, String direccion, double pxh) {
-        try {
-            FileWriter fileWriter = new FileWriter("clientes.csv", true); // Abre el archivo en modo de escritura aditiva
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            // Escribe los datos en el archivo
-            bufferedWriter.write(nombre + "," + direccion + "," + pxh);
-            bufferedWriter.newLine(); // Agrega una línea en blanco como separador
-
-            bufferedWriter.close();
-
-            System.out.println("Los datos se han guardado correctamente en el archivo.");
-        } catch (IOException e) {
-            System.out.println("Ocurrió un error al guardar los datos en el archivo: " + e.getMessage());
-        }
-
+    //JUAN X
+    public static Cliente interfazCliente(){
+        return null;
     }
-
-    public static void registroTXTProgramador(String nombre, LocalDate fecha, int horasTrabajadas) {
+            
+    //LUCAS guardar en un txt TODOS los programadores
+    public static void baseDeDatosProgramador(String nombre, LocalDate fecha, int horasTrabajadas) {
         try {
             FileWriter fileWriter = new FileWriter("programadores.txt", true);
             BufferedWriter writer = new BufferedWriter(fileWriter);
@@ -212,7 +196,18 @@ public class Consultora {
             System.out.println("Ocurrio un error al guardar los datos en el archivo " + e.getMessage());
         }
     }
-
+    
+    //FRANCO guardar en un txt TODOS los analistas
+    public static void baseDeDatosAnalista(){}
+    
+    //FRANCO guardar en un txt TODOS los clientes
+    public static void baseDeDatosCliente(){}
+    
+    public static void consultarAnalista(){}
+    
+    public static void consultarCliente(){}
+    
+    public static void registrarDiaProgramador(String nombre){}
     public static void main(String[] args) {
         Map<String, Analista> analistas = new HashMap<>();
         Map<String, Programador> programadores = new HashMap<>();
