@@ -69,9 +69,13 @@ public class Consultora {
     public static void registrarAnalista(Map<String, Analista> analistas) {
         // Obtener los datos del analista desde la interfaz gráfica
         Analista ana = analistaInterfaz();
-
+        
+        //Guardar los analistas en el HashMap
         analistas.put(ana.getNombre(), ana);
-
+        
+        //Guardar los analistas en una base de datos (txt)
+        baseDeDatosAnalista(ana);
+        
     }
     
     //Interfaz para registrar al objeto analista
@@ -244,7 +248,7 @@ public class Consultora {
     }
 
     //FRANCO guardar en un txt TODOS los analistas
-    public static void baseDeDatosAnalista() {
+    public static void baseDeDatosAnalista(Analista ana) {
     }
 
     //FRANCO guardar en un txt TODOS los clientes
