@@ -7,11 +7,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class Consultora {
 
@@ -19,7 +15,6 @@ public class Consultora {
     public Map<String, Analista> analistas;
     public Map<String, Programador> programadores;
     public Map<String, Cliente> clientes;
-    
 
     public Consultora() {
         analistas = new HashMap<>();
@@ -63,23 +58,23 @@ public class Consultora {
             Programador prog = entry.getValue();
             //Si el nombre del analista == al nombre que ingresa el usuario
             if (nombre.equals(nombreAux)) {
-                sueldo = prog.getHsTrabajadasTotales() * horaProgramador;
+                sueldo = prog.getHsTrabajadasTotales() * prog.getPxh();
                 break;//Finalizamos el bucle ya que encontramos al programador requerido
             }
 
         }
         return sueldo;
     }
-
+    //Registra a un objeto analista en un HashMap de analistas
     public static void registrarAnalista(Map<String, Analista> analistas) {
         // Obtener los datos del analista desde la interfaz gráfica
         Analista ana = analistaInterfaz();
 
         analistas.put(ana.getNombre(), ana);
-        
-        
-    }
 
+    }
+    
+    //Interfaz para registrar al objeto analista
     public static Analista analistaInterfaz() {
         // Crear un JFrame para mostrar la interfaz
         JFrame frame = new JFrame("Registrar Analista");
@@ -144,18 +139,70 @@ public class Consultora {
 
     }
 
-    //LUCIANO
+    //Registra a un objeto Programador en un HashMap de programadores
     public static void registrarProgramador(Map<String, Programador> programadores) {
         // Obtener los datos del programador desde la interfaz gráfica
         Programador prog = programadorInterfaz();
-        
+
         programadores.put(prog.getNombre(), prog);
-        
+
     }
-    //LUCIANO
-    public static Programador programadorInterfaz(){
-    return null;
-            }
+
+    //Interfaz para registrar al objeto programador
+    public static Programador programadorInterfaz() {
+        // Crear un JFrame para mostrar la interfaz
+        JFrame frame = new JFrame("Registrar Programador");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Crear un JPanel para contener los componentes
+        JPanel panel = new JPanel();
+
+        // Agregar un JLabel para el nombre
+        JLabel nombreLabel = new JLabel("Nombre:");
+        panel.add(nombreLabel);
+
+        // Solicitar el nombre al usuario mediante JOptionPane
+        String nombre = JOptionPane.showInputDialog(frame, "Ingrese nombre del Programador");
+        JLabel nombreValueLabel = new JLabel(nombre);
+        panel.add(nombreValueLabel);
+
+        // Agregar un JLabel para el legajo
+        JLabel legajoLabel = new JLabel("Legajo:");
+        panel.add(legajoLabel);
+
+        // Solicitar el legajo al usuario mediante JOptionPane
+        String legajo = JOptionPane.showInputDialog(frame, "Agregue un legajo ÚNICO al Programador que desea registrar");
+        JLabel legajoValueLabel = new JLabel(legajo);
+        panel.add(legajoValueLabel);
+
+        // Agregar un JLabel para el precio a pagar por hora trabajada
+        JLabel pxhLabel = new JLabel("Precio por hora:");
+        panel.add(pxhLabel);
+
+        // Solicitar el precio por hora al usuario mediante JOptionPane
+        String pxhString = JOptionPane.showInputDialog(frame, "Ingrese cuanto le pagará al programador por hora");
+        JLabel pxhValueLabel = new JLabel(pxhString);
+        panel.add(pxhValueLabel);
+
+        // Mostrar un JOptionPane con el panel para obtener la selección del usuario
+        int option = JOptionPane.showOptionDialog(
+                frame, panel, "Registrar Programador",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+
+        if (option == JOptionPane.OK_OPTION) {
+            double pxh = Double.parseDouble(pxhString);
+
+            // Crear un objeto Programador con los datos ingresados
+            Programador prog = new Programador(pxh, nombre, legajo);
+
+            frame.dispose();
+            return prog;
+
+        } else {
+            return null;
+        }
+
+    }
 
     //JUAN X        
     public static void registrarCliente(Map<String, Cliente> clientes) {
@@ -167,15 +214,14 @@ public class Consultora {
         System.out.println("Precio a cobrar por hora: ");
         double pxh = sc.nextDouble();
         Cliente cliente = new Cliente(nombre, direccion, pxh);
-        
 
     }
 
     //JUAN X
-    public static Cliente interfazCliente(){
+    public static Cliente interfazCliente() {
         return null;
     }
-            
+
     //LUCAS guardar en un txt TODOS los programadores
     public static void baseDeDatosProgramador(String nombre, LocalDate fecha, int horasTrabajadas) {
         try {
@@ -196,40 +242,38 @@ public class Consultora {
             System.out.println("Ocurrio un error al guardar los datos en el archivo " + e.getMessage());
         }
     }
-    
+
     //FRANCO guardar en un txt TODOS los analistas
-    public static void baseDeDatosAnalista(){}
-    
+    public static void baseDeDatosAnalista() {
+    }
+
     //FRANCO guardar en un txt TODOS los clientes
-    public static void baseDeDatosCliente(){}
-    
-    public static void consultarAnalista(){}
-    
-    public static void consultarCliente(){}
-    
-    public static void registrarDiaProgramador(String nombre){}
+    public static void baseDeDatosCliente() {
+    }
+
+    public static void consultarAnalista() {
+    }
+
+    public static void consultarCliente() {
+    }
+
+    public static void registrarDiaProgramador(String nombre) {
+    }
+
     public static void main(String[] args) {
         Map<String, Analista> analistas = new HashMap<>();
         Map<String, Programador> programadores = new HashMap<>();
 
         registrarAnalista(analistas);
-
-        //Analista a1 = new Analista(2, "JuanX", "0001");
-        //Analista a2 = new Analista(3, "Luciano", "0000");
-        //analistas.put(a1.getNombre(), a1);
-        //analistas.put(a2.getNombre(), a2);
-        Programador p1 = new Programador(90, "Lucas", "0002");
-        Programador p2 = new Programador(75, "Franco", "0003");
-        Programador p3 = new Programador(12, "Pilar", "0004");
-        programadores.put(p1.getNombre(), p1);
-        programadores.put(p2.getNombre(), p2);
-        programadores.put(p3.getNombre(), p3);
-
-        double sueldoa1 = calcularSueldoAnalista(analistas, "Luciano");
-        System.out.println(sueldoa1);
-        double sueldoP = calcularSueldoProgramador(programadores, "Pilar");
-        System.out.println(sueldoP);
-
+        registrarProgramador(programadores);
+        
+        
+        
+        System.out.println(programadores.get("Pilar").getPxh());//prueba de que funciona el registrarProgramador
+//        double sueldoa1 = calcularSueldoAnalista(analistas, "Luciano");
+//        System.out.println(sueldoa1);
+//        double sueldoP = calcularSueldoProgramador(programadores, "Pilar");
+//        System.out.println(sueldoP);
     }
 
 }
