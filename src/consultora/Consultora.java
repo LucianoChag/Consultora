@@ -1,10 +1,12 @@
 package consultora;
 
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -302,37 +304,71 @@ public class Consultora implements Serializable {
     //Guarda los objetos analistas en una base de datos (TXT)
     public static void baseDeDatosAnalista(Analista ana) throws FileNotFoundException, IOException {
         try {
-            // Crear un FileOutputStream para escribir en el archivo
-            FileOutputStream fileOutputStream = new FileOutputStream("analistas.txt", true);
+            // Crear un FileWriter para escribir en el archivo de texto
+            FileWriter fileWriter = new FileWriter("analistas.txt");
 
-            // Crear un ObjectOutputStream para escribir el objeto en el FileOutputStream
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            // Crear un BufferedWriter para escribir en el FileWriter
+            BufferedWriter writer = new BufferedWriter(fileWriter);
 
-            // Escribir el objeto en el archivo
-            objectOutputStream.writeObject(ana);
+            // Obtener los atributos del analista
+            String nombre = ana.getNombre();
+            String legajo = ana.getLegajo();
+            int categoria = ana.getCategoria();
+            String categoriaS = "";
+            switch (categoria) {
+                    case 1 ->
+                        categoriaS = "Inicial";
+                    case 2 ->
+                        categoriaS = "Intermedio";
+                    case 3 ->
+                        categoriaS = "Superior";
+                }
+           
             
-            // Agregar una nueva línea al final de cada objeto
-            fileOutputStream.write("\n".getBytes());
+            // Escribir los atributos en el archivo de texto
+            writer.write("Nombre: " + nombre);
+            writer.newLine();
+            writer.write("Legajo: " + legajo);
+            writer.newLine();
+            writer.write("Categoria: " + categoriaS);
+            writer.newLine();
+            writer.newLine();
 
-            // Cerrar los flujos
-            objectOutputStream.close();
-            fileOutputStream.close();
+            // Cerrar el BufferedWriter
+            writer.close();
 
-            JOptionPane.showMessageDialog(null, "Analista registrado correctamente");
-        } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null,"No se encuentra el archivo " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Analista registrado exitosamente");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null,"Error al guardar el archivo " + e.getMessage());
+            System.out.println("Error al registrar el analista: " + e.getMessage());
         }
-
     }
 
     //FRANCO guardar en un txt TODOS los clientes
     public static void baseDeDatosCliente() {
     }
 
-    public static void consultarAnalista() {
-        
+    public static Analista consultarAnalista() {
+        try {
+            // Crear un FileInputStream para leer el archivo
+            FileInputStream fileInputStream = new FileInputStream("analistas.txt");
+
+            // Crear un ObjectInputStream para leer el objeto desde el FileInputStream
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+
+            // Leer el objeto desde el archivo
+            Analista analista = (Analista) objectInputStream.readObject();
+
+            // Cerrar los flujos
+            objectInputStream.close();
+            fileInputStream.close();
+
+            System.out.println("El objeto ha sido leído exitosamente del archivo: " + analista.getNombre());
+
+            return analista;
+        } catch (Exception e) {
+            System.out.println("Error al leer el objeto del archivo: " + e.getMessage());
+            return null;
+        }
     }
 
     public static void consultarCliente() {
@@ -346,6 +382,8 @@ public class Consultora implements Serializable {
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
         registrarAnalista(analistas);
+
+        
         //registrarProgramador(programadores);
         //registrarCliente(clientes);
         //System.out.println(clientes.get("Ernesto").Pxcobrar);
