@@ -1,15 +1,18 @@
 package consultora;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import javax.swing.*;
 
-public class Consultora {
+public class Consultora implements Serializable {
 
     public static double horaProgramador = 2000;
     public Map<String, Analista> analistas;
@@ -65,19 +68,20 @@ public class Consultora {
         }
         return sueldo;
     }
+
     //Registra a un objeto analista en un HashMap de analistas
-    public static void registrarAnalista(Map<String, Analista> analistas) {
+    public static void registrarAnalista(Map<String, Analista> analistas) throws IOException {
         // Obtener los datos del analista desde la interfaz gráfica
         Analista ana = analistaInterfaz();
-        
+
         //Guardar los analistas en el HashMap
         analistas.put(ana.getNombre(), ana);
-        
+
         //Guardar los analistas en una base de datos (txt)
         baseDeDatosAnalista(ana);
-        
+
     }
-    
+
     //Interfaz para registrar al objeto analista
     public static Analista analistaInterfaz() {
         // Crear un JFrame para mostrar la interfaz
@@ -210,7 +214,7 @@ public class Consultora {
 
     //JUAN X        
     public static void registrarCliente(Map<String, Cliente> clientes) {
-         // Obtener los datos del programador desde la interfaz gráfica
+        // Obtener los datos del programador desde la interfaz gráfica
         Cliente cliente = clienteInterfaz();
 
         clientes.put(cliente.getNombre(), cliente);
@@ -219,7 +223,7 @@ public class Consultora {
 
     //JUAN X
     public static Cliente clienteInterfaz() {
-        
+
         // Crear un JFrame para mostrar la interfaz
         JFrame frame = new JFrame("Registrar Cliente");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -271,7 +275,7 @@ public class Consultora {
         } else {
             return null;
         }
-        
+
     }
 
     //LUCAS guardar en un txt TODOS los programadores
@@ -296,7 +300,28 @@ public class Consultora {
     }
 
     //FRANCO guardar en un txt TODOS los analistas
-    public static void baseDeDatosAnalista(Analista ana) {
+    public static void baseDeDatosAnalista(Analista ana) throws FileNotFoundException, IOException {
+        try {
+            // Crear un FileOutputStream para escribir en el archivo
+            FileOutputStream fileOutputStream = new FileOutputStream("analistas.txt");
+
+            // Crear un ObjectOutputStream para escribir el objeto en el FileOutputStream
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+            // Escribir el objeto en el archivo
+            objectOutputStream.writeObject(ana);
+
+            // Cerrar los flujos
+            objectOutputStream.close();
+            fileOutputStream.close();
+
+            System.out.println("\"El objeto ha sido guardado exitosamente en el archivo");
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
     }
 
     //FRANCO guardar en un txt TODOS los clientes
@@ -312,15 +337,15 @@ public class Consultora {
     public static void registrarDiaProgramador(String nombre) {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Map<String, Analista> analistas = new HashMap<>();
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
-        //registrarAnalista(analistas);
+        registrarAnalista(analistas);
         //registrarProgramador(programadores);
         //registrarCliente(clientes);
-        
-        System.out.println(programadores.get("Pilar").getPxh());//prueba de que funciona el registrarProgramador
+        //System.out.println(clientes.get("Ernesto").Pxcobrar);
+        //System.out.println(programadores.get("Pilar").getPxh());//prueba de que funciona el registrarProgramador
 //        double sueldoa1 = calcularSueldoAnalista(analistas, "Luciano");
 //        System.out.println(sueldoa1);
 //        double sueldoP = calcularSueldoProgramador(programadores, "Pilar");
