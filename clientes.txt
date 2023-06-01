@@ -1,6 +1,0 @@
-Nombre: Juan Cruz Filippini; Dirección: asd 156; Precio por cobrar: 1000.0; 
-
-Nombre: Pedro asd; Dirección: asasdasd; Precio por cobrar: 54654.0; 
-
-Nombre: pedro; Dirección: awer 456; Precio por cobrar: 154.0; 
-

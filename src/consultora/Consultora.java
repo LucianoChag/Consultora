@@ -157,6 +157,8 @@ public class Consultora {
 
         programadores.put(prog.getNombreYapellido(), prog);
 
+        baseDeDatosProgramador(prog);
+
     }
 
     //Interfaz para registrar al objeto programador
@@ -289,7 +291,7 @@ public class Consultora {
 
             // Obtener los atributos del analista
             String nombreYapellido = prog.getNombreYapellido();
-            String nombreRegistro = nombreYapellido.replaceAll("\\s+", "");
+            String nombreRegistro = nombreYapellido.replaceAll("\\s+", ""); //Quita los espacios en blanco de un String
             String legajo = prog.getLegajo();
             double precioPorHora = prog.getPxh();
             File registroDiasTrabajados = new File("Empleados\\RegistroDias\\registro" + nombreRegistro + ".txt");
@@ -357,7 +359,7 @@ public class Consultora {
     public static void baseDeDatosCliente(Cliente cliente) throws IOException {
 
         try {
-            FileWriter fileWriter = new FileWriter("clientes.txt", true);
+            FileWriter fileWriter = new FileWriter("Clientes\\clientes.txt", true);
 
             // Crear un BufferedWriter para escribir en el FileWriter
             BufferedWriter writer = new BufferedWriter(fileWriter);
@@ -430,11 +432,11 @@ public class Consultora {
             return null;
         }
     }
-    
+
     public static Cliente consultarCliente(String nombreCliente) {
         try {
             // Crear un FileReader para leer el archivo de texto
-            FileReader fileReader = new FileReader("Clientes.txt");
+            FileReader fileReader = new FileReader("Clientes\\clientes.txt");
 
             // Crear un BufferedReader para leer el FileReader
             BufferedReader reader = new BufferedReader(fileReader);
@@ -457,8 +459,8 @@ public class Consultora {
                     reader.close();
                     JOptionPane.showMessageDialog(null, "Analista extraido de la base de datos correctamente");
                     return cliente;
-                    }    
-                }          
+                }
+            }
             reader.close();
             //Si no se encuentra retornar null
             return null;
@@ -469,8 +471,6 @@ public class Consultora {
         }
     }
 
-   
-
     public static void registrarDiaProgramador(String nombre) {
     }
 
@@ -478,29 +478,24 @@ public class Consultora {
         Map<String, Analista> analistas = new HashMap<>();
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
-<<<<<<< Updated upstream
 
         for (int i = 0; i < 3; i++) {
             registrarCliente(clientes);
         }
         //Analista ana = consultarAnalista("Juan Cruz Filippini");
         //System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo() + " " + ana.getCategoria());
-=======
+
         Programador prog = new Programador("Franco Videla", "002", 500.00);
 //        for (int i = 0; i < 10; i++) {
 //            registrarAnalista(analistas);
 //        }
 
-        baseDeDatosProgramador(prog);
-
 //        Analista ana = consultarAnalista("Juan Cruz Filippini");
 //        System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo() + " " + ana.getCategoria());
->>>>>>> Stashed changes
         //registrarProgramador(programadores);
-        
         //System.out.println(clientes.get("Ernesto").Pxcobrar);
         Cliente cliente = consultarCliente("Juan Cruz Filippini");
-        System.out.println(cliente.getNombre()+ " " + cliente.getDireccion() + " " + cliente.getPxcobrar());
+        System.out.println(cliente.getNombre() + " " + cliente.getDireccion() + " " + cliente.getPxcobrar());
         //System.out.println(programadores.get("Pilar").getPxh());//prueba de que funciona el registrarProgramador
 //        double sueldoa1 = calcularSueldoAnalista(analistas, "Luciano");
 //        System.out.println(sueldoa1);
