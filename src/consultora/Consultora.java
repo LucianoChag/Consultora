@@ -215,12 +215,12 @@ public class Consultora {
     }
 
     //JUAN X        
-    public static void registrarCliente(Map<String, Cliente> clientes) {
+    public static void registrarCliente(Map<String, Cliente> clientes) throws IOException {
         // Obtener los datos del programador desde la interfaz gráfica
         Cliente cliente = clienteInterfaz();
 
         clientes.put(cliente.getNombre(), cliente);
-
+        baseDeDatosCliente(cliente);
     }
 
     //JUAN X
