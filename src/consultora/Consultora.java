@@ -3,15 +3,10 @@ package consultora;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -294,7 +289,7 @@ public class Consultora {
             String nombreRegistro = nombreYapellido.replaceAll("\\s+", ""); //Quita los espacios en blanco de un String
             String legajo = prog.getLegajo();
             double precioPorHora = prog.getPxh();
-            File registroDiasTrabajados = new File("Empleados\\RegistroDias\\registro" + nombreRegistro + ".txt");
+            File registroDiasTrabajados = new File("Empleados\\RegistroDiasProgramadores\\registro" + nombreRegistro + ".txt");
 
             // Crear el archivo para los registros de días trabajados
             registroDiasTrabajados.createNewFile();
@@ -312,7 +307,7 @@ public class Consultora {
 
             JOptionPane.showMessageDialog(null, "Programador registrado exitosamente");
         } catch (IOException e) {
-            System.out.println("Error al registrar al programador: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al registrar al Programador " + e.getMessage());
         }
     }
 
@@ -471,21 +466,54 @@ public class Consultora {
         }
     }
 
-    public static void registrarDiaProgramador(String nombre) {
+    public static void registrarDiaProgramador() throws IOException {
+        String nombreYapellido = JOptionPane.showInputDialog("Nombre y Apellido del programador: ");
+        JOptionPane.showMessageDialog(null, "Ingrese fecha: ");
+        int ano = Integer.parseInt(JOptionPane.showInputDialog("Año: "));
+        int mes = Integer.parseInt(JOptionPane.showInputDialog("Mes: "));
+        int dia = Integer.parseInt(JOptionPane.showInputDialog("Dia: "));
+        LocalDate fecha = LocalDate.of(ano, mes, dia);
+        String horas = JOptionPane.showInputDialog("Ingrese horas trabajadas en dicha fecha: ");
+
+        registrarDiaProgramadorTXT(nombreYapellido, fecha, horas);
+    }
+
+    public static void registrarDiaProgramadorTXT(String nombreYapellido, LocalDate fecha, String horas) throws IOException {
+        try {
+            String nombreRegistro = nombreYapellido.replaceAll("\\s+", "");
+
+            FileWriter filewriter = new FileWriter("Empleados\\RegistroDiasProgramadores\\registro" + nombreRegistro + ".txt", true);
+            BufferedWriter writer = new BufferedWriter(filewriter);
+
+            writer.write("Fecha: " + fecha + "; ");
+            writer.write("horas: " + horas);
+            writer.newLine();
+            writer.newLine();
+
+            // Cerrar el BufferedWriter
+            writer.close();
+
+            JOptionPane.showMessageDialog(null, "Registro existoso");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error en el registro" + e.getMessage());
+        }
+
     }
 
     public static void main(String[] args) throws IOException {
         Map<String, Analista> analistas = new HashMap<>();
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
-
-        for (int i = 0; i < 3; i++) {
-            registrarCliente(clientes);
-        }
+//
+//        for (int i = 0; i < 3; i++) {
+//            registrarProgramador(programadores);
+//        }
+        
+        registrarDiaProgramador();
         //Analista ana = consultarAnalista("Juan Cruz Filippini");
         //System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo() + " " + ana.getCategoria());
 
-        Programador prog = new Programador("Franco Videla", "002", 500.00);
+        
 //        for (int i = 0; i < 10; i++) {
 //            registrarAnalista(analistas);
 //        }
@@ -494,8 +522,7 @@ public class Consultora {
 //        System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo() + " " + ana.getCategoria());
         //registrarProgramador(programadores);
         //System.out.println(clientes.get("Ernesto").Pxcobrar);
-        Cliente cliente = consultarCliente("Juan Cruz Filippini");
-        System.out.println(cliente.getNombre() + " " + cliente.getDireccion() + " " + cliente.getPxcobrar());
+        
         //System.out.println(programadores.get("Pilar").getPxh());//prueba de que funciona el registrarProgramador
 //        double sueldoa1 = calcularSueldoAnalista(analistas, "Luciano");
 //        System.out.println(sueldoa1);

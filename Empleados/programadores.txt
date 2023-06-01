@@ -1,0 +1,12 @@
+Nombre: Juan Cruz Filippini; Legajo: 0001; Sueldo por hora: 200.0; Registro de la cantidad de días y horas trabajados: Empleados\RegistroDiasProgramadores\registroJuanCruzFilippini.txt
+
+Nombre: Luciano Chagnaud ; Legajo: 0003; Sueldo por hora: 300.0; Registro de la cantidad de días y horas trabajados: Empleados\RegistroDiasProgramadores\registroLucianoChagnaud.txt
+
+Nombre: Pablo Perez; Legajo: 0004; Sueldo por hora: 4000.0; Registro de la cantidad de días y horas trabajados: Empleados\RegistroDiasProgramadores\registroPabloPerez.txt
+
+Nombre: Marcos Chaves; Legajo: 24585; Sueldo por hora: 4000.0; Registro de la cantidad de días y horas trabajados: Empleados\RegistroDiasProgramadores\registroMarcosChaves.txt
+
+Nombre: Camila Giaquinta; Legajo: 24582; Sueldo por hora: 3000.0; Registro de la cantidad de días y horas trabajados: Empleados\RegistroDiasProgramadores\registroCamilaGiaquinta.txt
+
+Nombre: Fausto Costigliolo; Legajo: 24593; Sueldo por hora: 3500.0; Registro de la cantidad de días y horas trabajados: Empleados\RegistroDiasProgramadores\registroFaustoCostigliolo.txt
+

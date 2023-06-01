@@ -1,6 +1,5 @@
 package consultora;
 
-import java.util.ArrayList;
 
 public class Programador extends Trabajador {
 
