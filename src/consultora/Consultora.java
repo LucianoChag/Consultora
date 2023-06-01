@@ -28,7 +28,7 @@ public class Consultora implements Serializable {
         programadores = new HashMap<>();
         clientes = new HashMap<>();
     }
-    
+
     //Recibe como parametros el HashMap de Analistas y el nombre del analista al que se le quiere calcular el sueldo
     public static double calcularSueldoAnalista(Map<String, Analista> analistas, String nombre) {
         double sueldo = 0; //creamos la variable sueldo
@@ -307,7 +307,7 @@ public class Consultora implements Serializable {
     public static void baseDeDatosAnalista(Analista ana) throws FileNotFoundException, IOException {
         try {
             // Crear un FileWriter para escribir en el archivo de texto
-            FileWriter fileWriter = new FileWriter("analistas.txt");
+            FileWriter fileWriter = new FileWriter("analistas.txt", true);
 
             // Crear un BufferedWriter para escribir en el FileWriter
             BufferedWriter writer = new BufferedWriter(fileWriter);
@@ -327,11 +327,9 @@ public class Consultora implements Serializable {
             }
 
             // Escribir los atributos en el archivo de texto
-            writer.write("Nombre: " + nombre);
-            writer.newLine();
-            writer.write("Legajo: " + legajo);
-            writer.newLine();
-            writer.write("Categoria: " + categoriaS);
+            writer.write("Nombre: " + nombre + "; ");
+            writer.write("Legajo: " + legajo + "; ");
+            writer.write("Categoria: " + categoriaS + "; ");
             writer.newLine();
             writer.newLine();
 
@@ -348,7 +346,7 @@ public class Consultora implements Serializable {
     public static void baseDeDatosCliente() {
     }
 
-    public static Analista consultarAnalista() {
+    public static Analista consultarAnalista(String nombreAnalista) {
         try {
             // Crear un FileReader para leer el archivo de texto
             FileReader fileReader = new FileReader("analistas.txt");
@@ -356,38 +354,42 @@ public class Consultora implements Serializable {
             // Crear un BufferedReader para leer el FileReader
             BufferedReader reader = new BufferedReader(fileReader);
 
-            // Leer los atributos del archivo de texto
-            String nombreLine = reader.readLine();
-            String legajoLine = reader.readLine();
-            String categoriaLine = reader.readLine();
+            String linea;
+            //Bucle para recorrer el archivo
+            while ((linea = reader.readLine()) != null) {
+                //Verificamos si el nombre que ingresa el usuario coincide con el nombre en la base de datos
+                if (linea.contains(nombreAnalista)) {
+                    // Extraer los valores de los atributos
+                    //Lo que hace este metodo es separar el string en distintos substring, utilizando el delimitador ": "
+                    //Luego con el [] accedemos al valor y se lo asignamos a una variable.
+                    String[] atributos = linea.split(": |; ");
+                    String nombre = atributos[1];
+                    String legajo = atributos[3];
+                    String categoriaS = atributos[5];
+                    int categoria = 0;
+                    switch (categoriaS) {
+                        case "Inicial" ->
+                            categoria = 1;
+                        case "Intermedio" ->
+                            categoria = 2;
+                        case "Superior" ->
+                            categoria = 3;
+                    }
+                    // Crear un nuevo objeto Analista con los atributos leídos
+                    Analista analista = new Analista(categoria, nombre, legajo);
 
-            // Extraer los valores de los atributos
-            //Lo que hace este metodo es separar el string en dos substring, uno con la clave y el otro con el valor.
-            //Luego con el [1] accedemos al valor y se lo asignamos a una variable.
-            String nombre = nombreLine.split(": ")[1]; 
-            String legajo = legajoLine.split(": ")[1];
-            String categoriaS = categoriaLine.split(": ")[1];
-            int categoria = 0;
-            switch (categoriaS){
-                case "Inicial" ->
-                    categoria = 1;
-                case "Intermedio" ->
-                    categoria = 2;
-                case "Superior" ->
-                    categoria = 3;
+                    reader.close();
+                    JOptionPane.showMessageDialog(null, "Analista extraido de la base de datos correctamente");
+                    return analista;
+                }
             }
 
-            // Crear un nuevo objeto Analista con los atributos leídos
-            Analista analista = new Analista(categoria, nombre, legajo);
-
-            // Cerrar el BufferedReader
             reader.close();
+            //Si no se encuentra retornar null
+            return null;
 
-            JOptionPane.showMessageDialog(null,"Analista extraido de la base de datos correctamente");
-
-            return analista;
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null,"Error al extraer analista de la base de datos. " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al extraer analista de la base de datos. " + e.getMessage());
             return null;
         }
     }
@@ -403,8 +405,8 @@ public class Consultora implements Serializable {
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
         registrarAnalista(analistas);
-        Analista ana = consultarAnalista();
-        System.out.println(ana.getNombre());
+        Analista ana = consultarAnalista("Alberto");
+        System.out.println(ana.getNombre() + " " + ana.getLegajo()+ " " + ana.getCategoria());
         //registrarProgramador(programadores);
         //registrarCliente(clientes);
         //System.out.println(clientes.get("Ernesto").Pxcobrar);

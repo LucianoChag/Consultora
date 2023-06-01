@@ -1,4 +1,0 @@
-Nombre: Juan
-Legajo: 0002
-Categoria: Inicial
-
