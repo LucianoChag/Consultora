@@ -337,7 +337,17 @@ public class Consultora {
     }
 
     //FRANCO guardar en un txt TODOS los clientes
-    public static void baseDeDatosCliente() {
+    public static void baseDeDatosCliente(Cliente cliente) throws IOException {
+        FileWriter fileWriter = new FileWriter("Clientes.txt", true);
+
+            // Crear un BufferedWriter para escribir en el FileWriter
+            BufferedWriter writer = new BufferedWriter(fileWriter);
+              // Obtener los atributos del analista
+            String nombre = cliente.getNombre();
+            String direccion = cliente.getDireccion();
+            double categoria = cliente.getPxcobrar();
+           
+          
     }
 
     //Buscar en la Base de Datos un Analista solicitado por el Usuario
