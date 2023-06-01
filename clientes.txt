@@ -1,8 +1,0 @@
-Nombre del Cliente: JuanX
-Direccion: Zapiola
-Precio a cobrar por hora: 2345.0
-
-Nombre del Cliente: JuanX
-Direccion: Zapiola2345
-Precio a cobrar por hora: 15000.0
-

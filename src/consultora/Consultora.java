@@ -16,9 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
 
-public class Consultora implements Serializable {
-
-    public static double horaProgramador = 2000;
+public class Consultora {
     public Map<String, Analista> analistas;
     public Map<String, Programador> programadores;
     public Map<String, Cliente> clientes;
@@ -78,12 +76,11 @@ public class Consultora implements Serializable {
         // Obtener los datos del analista desde la interfaz gráfica
         Analista ana = analistaInterfaz();
 
-        //Guardar los analistas en el HashMap
-        analistas.put(ana.getNombre(), ana);
+        //Guardar los analistas en el HashMap 
+        analistas.put(ana.getNombreYapellido(), ana);//capaz esta linea habrá que sacarla porque al guardar los datos en una base de datos no hace falta el hashmap
 
         //Guardar los analistas en una base de datos (txt)
         baseDeDatosAnalista(ana);
-
     }
 
     //Interfaz para registrar al objeto analista
@@ -156,7 +153,7 @@ public class Consultora implements Serializable {
         // Obtener los datos del programador desde la interfaz gráfica
         Programador prog = programadorInterfaz();
 
-        programadores.put(prog.getNombre(), prog);
+        programadores.put(prog.getNombreYapellido(), prog);
 
     }
 
@@ -227,7 +224,6 @@ public class Consultora implements Serializable {
 
     //JUAN X
     public static Cliente clienteInterfaz() {
-
         // Crear un JFrame para mostrar la interfaz
         JFrame frame = new JFrame("Registrar Cliente");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -275,11 +271,9 @@ public class Consultora implements Serializable {
 
             frame.dispose();
             return cliente;
-
         } else {
             return null;
         }
-
     }
 
     //LUCAS guardar en un txt TODOS los programadores
@@ -307,13 +301,13 @@ public class Consultora implements Serializable {
     public static void baseDeDatosAnalista(Analista ana) throws FileNotFoundException, IOException {
         try {
             // Crear un FileWriter para escribir en el archivo de texto
-            FileWriter fileWriter = new FileWriter("analistas.txt", true);
+            FileWriter fileWriter = new FileWriter("Empleados\\analistas.txt", true);
 
             // Crear un BufferedWriter para escribir en el FileWriter
             BufferedWriter writer = new BufferedWriter(fileWriter);
 
             // Obtener los atributos del analista
-            String nombre = ana.getNombre();
+            String nombre = ana.getNombreYapellido();
             String legajo = ana.getLegajo();
             int categoria = ana.getCategoria();
             String categoriaS = "";
@@ -325,7 +319,7 @@ public class Consultora implements Serializable {
                 case 3 ->
                     categoriaS = "Superior";
             }
-
+            
             // Escribir los atributos en el archivo de texto
             writer.write("Nombre: " + nombre + "; ");
             writer.write("Legajo: " + legajo + "; ");
@@ -346,10 +340,11 @@ public class Consultora implements Serializable {
     public static void baseDeDatosCliente() {
     }
 
+    //Buscar en la Base de Datos un Analista solicitado por el Usuario
     public static Analista consultarAnalista(String nombreAnalista) {
         try {
             // Crear un FileReader para leer el archivo de texto
-            FileReader fileReader = new FileReader("analistas.txt");
+            FileReader fileReader = new FileReader("Empleados\\analistas.txt");
 
             // Crear un BufferedReader para leer el FileReader
             BufferedReader reader = new BufferedReader(fileReader);
@@ -383,7 +378,6 @@ public class Consultora implements Serializable {
                     return analista;
                 }
             }
-
             reader.close();
             //Si no se encuentra retornar null
             return null;
@@ -404,9 +398,13 @@ public class Consultora implements Serializable {
         Map<String, Analista> analistas = new HashMap<>();
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
-        registrarAnalista(analistas);
-        Analista ana = consultarAnalista("Alberto");
-        System.out.println(ana.getNombre() + " " + ana.getLegajo()+ " " + ana.getCategoria());
+        
+//        for (int i = 0; i < 10; i++) {
+//            registrarAnalista(analistas);
+//        }
+        
+        Analista ana = consultarAnalista("Juan Cruz Filippini");
+        System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo()+ " " + ana.getCategoria());
         //registrarProgramador(programadores);
         //registrarCliente(clientes);
         //System.out.println(clientes.get("Ernesto").Pxcobrar);

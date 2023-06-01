@@ -1,10 +1,6 @@
 package consultora;
 
-
 public class Cliente {
-
-    
-    
     public String nombre;
     public String direccion;
     public double Pxcobrar;
