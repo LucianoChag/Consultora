@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.swing.*;
 
 public class Consultora {
+
     public Map<String, Analista> analistas;
     public Map<String, Programador> programadores;
     public Map<String, Cliente> clientes;
@@ -319,7 +320,7 @@ public class Consultora {
                 case 3 ->
                     categoriaS = "Superior";
             }
-            
+
             // Escribir los atributos en el archivo de texto
             writer.write("Nombre: " + nombre + "; ");
             writer.write("Legajo: " + legajo + "; ");
@@ -338,16 +339,32 @@ public class Consultora {
 
     //FRANCO guardar en un txt TODOS los clientes
     public static void baseDeDatosCliente(Cliente cliente) throws IOException {
-        FileWriter fileWriter = new FileWriter("clientes.txt", true);
+
+        try {
+            FileWriter fileWriter = new FileWriter("clientes.txt", true);
 
             // Crear un BufferedWriter para escribir en el FileWriter
             BufferedWriter writer = new BufferedWriter(fileWriter);
-              // Obtener los atributos del analista
+            // Obtener los atributos del analista
             String nombre = cliente.getNombre();
             String direccion = cliente.getDireccion();
-            double categoria = cliente.getPxcobrar();
-           
-          
+            double pxcobrar = cliente.getPxcobrar();
+
+            // Escribir los atributos en el archivo de texto
+            writer.write("Nombre: " + nombre + "; ");
+            writer.write("Direccion: " + direccion + "; ");
+            writer.write("Pxcobrar: " + pxcobrar + "; ");
+            writer.newLine();
+            writer.newLine();
+
+            // Cerrar el BufferedWriter
+            writer.close();
+
+            JOptionPane.showMessageDialog(null, "Cliente registrado exitosamente");
+        } catch (IOException e) {
+            System.out.println("Error al registrar el cliente: " + e.getMessage());
+        }
+
     }
 
     //Buscar en la Base de Datos un Analista solicitado por el Usuario
@@ -408,13 +425,12 @@ public class Consultora {
         Map<String, Analista> analistas = new HashMap<>();
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
-        
+
 //        for (int i = 0; i < 10; i++) {
 //            registrarAnalista(analistas);
 //        }
-        
         Analista ana = consultarAnalista("Juan Cruz Filippini");
-        System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo()+ " " + ana.getCategoria());
+        System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo() + " " + ana.getCategoria());
         //registrarProgramador(programadores);
         registrarCliente(clientes);
         System.out.println(clientes.get("Ernesto").Pxcobrar);
