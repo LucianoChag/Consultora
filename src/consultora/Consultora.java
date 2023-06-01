@@ -415,45 +415,43 @@ public class Consultora {
         }
     }
     
-//    public static Cliente consultarCliente(String nombreCliente) {
-//        try {
-//            // Crear un FileReader para leer el archivo de texto
-//            FileReader fileReader = new FileReader("Clientes.txt");
-//
-//            // Crear un BufferedReader para leer el FileReader
-//            BufferedReader reader = new BufferedReader(fileReader);
-//
-//            String linea;
-//            //Bucle para recorrer el archivo
-//            while ((linea = reader.readLine()) != null) {
-//                //Verificamos si el nombre que ingresa el usuario coincide con el nombre en la base de datos
-//                if (linea.contains(nombreCliente)) {
-//                    // Extraer los valores de los atributos
-//                    //Lo que hace este metodo es separar el string en distintos substring, utilizando el delimitador ": "
-//                    //Luego con el [] accedemos al valor y se lo asignamos a una variable.
-//                    String[] atributos = linea.split(": |; ");
-//                    String nombre = atributos[1];
-//                    String direccion = atributos[3];
-//                    String PxcobrarString = atributos[5];
-//                    double Pxcobrar = Double.parseDouble(PxcobrarString);
-//                    
-//                    }
-//                    // Crear un nuevo objeto Cliente con los atributos leídos
-//                    Cliente cliente = new Cliente(nombre, direccion, Pxcobrar);
-//                    reader.close();
-//                    JOptionPane.showMessageDialog(null, "Analista extraido de la base de datos correctamente");
-//                    return cliente;
-//                }
-//            
-//            reader.close();
-//            //Si no se encuentra retornar null
-//            return null;
-//
-//        } catch (IOException e) {
-//            JOptionPane.showMessageDialog(null, "Error al extraer analista de la base de datos. " + e.getMessage());
-//            return null;
-//        }
-//    }
+    public static Cliente consultarCliente(String nombreCliente) {
+        try {
+            // Crear un FileReader para leer el archivo de texto
+            FileReader fileReader = new FileReader("Clientes.txt");
+
+            // Crear un BufferedReader para leer el FileReader
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            String linea;
+            //Bucle para recorrer el archivo
+            while ((linea = reader.readLine()) != null) {
+                //Verificamos si el nombre que ingresa el usuario coincide con el nombre en la base de datos
+                if (linea.contains(nombreCliente)) {
+                    // Extraer los valores de los atributos
+                    //Lo que hace este metodo es separar el string en distintos substring, utilizando el delimitador ": "
+                    //Luego con el [] accedemos al valor y se lo asignamos a una variable.
+                    String[] atributos = linea.split(": |; ");
+                    String nombre = atributos[1];
+                    String direccion = atributos[3];
+                    String PxcobrarString = atributos[5];
+                    double Pxcobrar = Double.parseDouble(PxcobrarString);
+                    // Crear un nuevo objeto Cliente con los atributos leídos
+                    Cliente cliente = new Cliente(nombre, direccion, Pxcobrar);
+                    reader.close();
+                    JOptionPane.showMessageDialog(null, "Analista extraido de la base de datos correctamente");
+                    return cliente;
+                    }    
+                }          
+            reader.close();
+            //Si no se encuentra retornar null
+            return null;
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al extraer analista de la base de datos. " + e.getMessage());
+            return null;
+        }
+    }
 
    
 
