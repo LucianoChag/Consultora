@@ -338,7 +338,7 @@ public class Consultora {
 
     //FRANCO guardar en un txt TODOS los clientes
     public static void baseDeDatosCliente(Cliente cliente) throws IOException {
-        FileWriter fileWriter = new FileWriter("Clientes.txt", true);
+        FileWriter fileWriter = new FileWriter("clientes.txt", true);
 
             // Crear un BufferedWriter para escribir en el FileWriter
             BufferedWriter writer = new BufferedWriter(fileWriter);
