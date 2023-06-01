@@ -406,8 +406,8 @@ public class Consultora {
         Analista ana = consultarAnalista("Juan Cruz Filippini");
         System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo()+ " " + ana.getCategoria());
         //registrarProgramador(programadores);
-        //registrarCliente(clientes);
-        //System.out.println(clientes.get("Ernesto").Pxcobrar);
+        registrarCliente(clientes);
+        System.out.println(clientes.get("Ernesto").Pxcobrar);
         //System.out.println(programadores.get("Pilar").getPxh());//prueba de que funciona el registrarProgramador
 //        double sueldoa1 = calcularSueldoAnalista(analistas, "Luciano");
 //        System.out.println(sueldoa1);
