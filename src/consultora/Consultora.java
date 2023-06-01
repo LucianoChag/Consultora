@@ -463,14 +463,16 @@ public class Consultora {
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
 
-//        for (int i = 0; i < 10; i++) {
-//            registrarAnalista(analistas);
-//        }
-        Analista ana = consultarAnalista("Juan Cruz Filippini");
-        System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo() + " " + ana.getCategoria());
+        for (int i = 0; i < 3; i++) {
+            registrarCliente(clientes);
+        }
+        //Analista ana = consultarAnalista("Juan Cruz Filippini");
+        //System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo() + " " + ana.getCategoria());
         //registrarProgramador(programadores);
-        registrarCliente(clientes);
-        System.out.println(clientes.get("Ernesto").Pxcobrar);
+        
+        //System.out.println(clientes.get("Ernesto").Pxcobrar);
+        Cliente cliente = consultarCliente("Juan Cruz Filippini");
+        System.out.println(cliente.getNombre()+ " " + cliente.getDireccion() + " " + cliente.getPxcobrar());
         //System.out.println(programadores.get("Pilar").getPxh());//prueba de que funciona el registrarProgramador
 //        double sueldoa1 = calcularSueldoAnalista(analistas, "Luciano");
 //        System.out.println(sueldoa1);
