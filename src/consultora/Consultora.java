@@ -352,7 +352,7 @@ public class Consultora {
 
             // Escribir los atributos en el archivo de texto
             writer.write("Nombre: " + nombre + "; ");
-            writer.write("Direccion: " + direccion + "; ");
+            writer.write("Dirección: " + direccion + "; ");
             writer.write("Precio por cobrar: " + pxcobrar + "; ");
             writer.newLine();
             writer.newLine();
