@@ -1,0 +1,2 @@
+Nombre: Franco Videla; Legajo: 002; Sueldo por hora: 500.0; Registro de la cantidad de días y horas trabajados: Empleados\RegistroDias\registroFrancoVidela.txt
+

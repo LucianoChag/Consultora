@@ -2,22 +2,29 @@ package consultora;
 
 import java.util.ArrayList;
 
-public class Programador extends Trabajador{
+public class Programador extends Trabajador {
+
     private int hsTrabajadasTotales;
     private int hsTrabajadasMes;
     private double pxh; //Agregue un atributo pxh en programador para que cada programador cobre distinto en base a lo que la consultora desee
-    public ArrayList<DiasyHoras> mes;
+    String registroDiasTrabajados;
 
-    public Programador(String nombre, String legajo) {
-        super(nombre, legajo);
+    public Programador(String nombreYapellido, String legajo) {
+        super(nombreYapellido, legajo);
     }
 
-    public Programador(double pxh, String nombre, String legajo) {
-        super(nombre, legajo);
+    public String getRegistroDiasTrabajados() {
+        return registroDiasTrabajados;
+    }
+
+    public void setRegistroDiasTrabajados(String registroDiasTrabajados) {
+        this.registroDiasTrabajados = registroDiasTrabajados;
+    }
+
+    public Programador(String nombreYapellido, String legajo, double pxh) {
+        super(nombreYapellido, legajo);
         this.pxh = pxh;
     }
-
-    
 
     public int getHsTrabajadasTotales() {
         return hsTrabajadasTotales;
@@ -43,16 +50,4 @@ public class Programador extends Trabajador{
         this.pxh = pxh;
     }
 
-    public ArrayList<DiasyHoras> getMes() {
-        return mes;
-    }
-
-    public void setMes(ArrayList<DiasyHoras> mes) {
-        this.mes = mes;
-    }
-    
-    
-    
-    
-    
 }

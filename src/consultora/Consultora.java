@@ -2,6 +2,7 @@ package consultora;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -203,7 +204,7 @@ public class Consultora {
             double pxh = Double.parseDouble(pxhString);
 
             // Crear un objeto Programador con los datos ingresados
-            Programador prog = new Programador(pxh, nombre, legajo);
+            Programador prog = new Programador(nombre, legajo, pxh);
 
             frame.dispose();
             return prog;
@@ -278,23 +279,38 @@ public class Consultora {
     }
 
     //LUCAS guardar en un txt TODOS los programadores
-    public static void baseDeDatosProgramador(String nombre, LocalDate fecha, int horasTrabajadas) {
+    public static void baseDeDatosProgramador(Programador prog) {
         try {
-            FileWriter fileWriter = new FileWriter("clientes.txt", true);
+            // Crear un FileWriter para escribir en el archivo de texto
+            FileWriter fileWriter = new FileWriter("Empleados\\programadores.txt", true);
+
+            // Crear un BufferedWriter para escribir en el FileWriter
             BufferedWriter writer = new BufferedWriter(fileWriter);
 
-            writer.write("Programador: " + nombre);
-            writer.newLine();
-            writer.write("Fecha: " + fecha);
-            writer.newLine();
-            writer.write("Horas trabajadas: " + horasTrabajadas);
+            // Obtener los atributos del analista
+            String nombreYapellido = prog.getNombreYapellido();
+            String nombreRegistro = nombreYapellido.replaceAll("\\s+", "");
+            String legajo = prog.getLegajo();
+            double precioPorHora = prog.getPxh();
+            File registroDiasTrabajados = new File("Empleados\\RegistroDias\\registro" + nombreRegistro + ".txt");
+
+            // Crear el archivo para los registros de días trabajados
+            registroDiasTrabajados.createNewFile();
+
+            // Escribir los atributos en el archivo de texto
+            writer.write("Nombre: " + nombreYapellido + "; ");
+            writer.write("Legajo: " + legajo + "; ");
+            writer.write("Sueldo por hora: " + precioPorHora + "; ");
+            writer.write("Registro de la cantidad de días y horas trabajados: " + registroDiasTrabajados);
             writer.newLine();
             writer.newLine();
 
+            // Cerrar el BufferedWriter
             writer.close();
-            System.out.println("Los datos se han guardado correctamente en el archivo");
+
+            JOptionPane.showMessageDialog(null, "Programador registrado exitosamente");
         } catch (IOException e) {
-            System.out.println("Ocurrio un error al guardar los datos en el archivo " + e.getMessage());
+            System.out.println("Error al registrar al programador: " + e.getMessage());
         }
     }
 
@@ -462,12 +478,24 @@ public class Consultora {
         Map<String, Analista> analistas = new HashMap<>();
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
+<<<<<<< Updated upstream
 
         for (int i = 0; i < 3; i++) {
             registrarCliente(clientes);
         }
         //Analista ana = consultarAnalista("Juan Cruz Filippini");
         //System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo() + " " + ana.getCategoria());
+=======
+        Programador prog = new Programador("Franco Videla", "002", 500.00);
+//        for (int i = 0; i < 10; i++) {
+//            registrarAnalista(analistas);
+//        }
+
+        baseDeDatosProgramador(prog);
+
+//        Analista ana = consultarAnalista("Juan Cruz Filippini");
+//        System.out.println(ana.getNombreYapellido() + " " + ana.getLegajo() + " " + ana.getCategoria());
+>>>>>>> Stashed changes
         //registrarProgramador(programadores);
         
         //System.out.println(clientes.get("Ernesto").Pxcobrar);
