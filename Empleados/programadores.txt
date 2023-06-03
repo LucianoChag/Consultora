@@ -1,2 +1,0 @@
-Nombre: Franco; Apellido: Videla; Legajo: 0002; Sueldo por hora: 900.0; Registro Personal: Empleados\RegistroDiasProgramadores\registroFrancoVidela.txt
-

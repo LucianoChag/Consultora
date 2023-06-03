@@ -80,16 +80,16 @@ public class Cliente {
         JLabel nombreLabel = new JLabel("Nombre:");
         panel.add(nombreLabel);
         
-        // Agregar un JLabel para el apellido
-        JLabel apellidoLabel = new JLabel("Apellido:");
-        panel.add(apellidoLabel);
-
         // Solicitar el nombre al usuario mediante JOptionPane
         String nombre = JOptionPane.showInputDialog(frame, "Ingrese nombre del Cliente");
         //Modificamos la primer letra a Mayuscula por si el usuario ingreso todo en minusculas
         String nombreMayus = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
         JLabel nombreValueLabel = new JLabel(nombreMayus);
         panel.add(nombreValueLabel);
+        
+        // Agregar un JLabel para el apellido
+        JLabel apellidoLabel = new JLabel("Apellido:");
+        panel.add(apellidoLabel);        
         
         // Solicitar el apellido al usuario mediante JOptionPane
         String apellido = JOptionPane.showInputDialog(frame, "Ingrese apellido del Cliente");

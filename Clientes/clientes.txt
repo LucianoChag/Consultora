@@ -1,2 +1,2 @@
-Nombre: Luciano; Apellido: Chagnaud; Dirección: borges 549; Precio por cobrar: $300.0; 
+Nombre: Zoe; Apellido: Chagnaud; Dirección: borges 549; Precio por cobrar: $900.0; 
 

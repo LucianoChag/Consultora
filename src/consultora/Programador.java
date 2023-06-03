@@ -106,6 +106,10 @@ public class Programador extends Trabajador {
         String nombreMayus = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
         JLabel nombreValueLabel = new JLabel(nombreMayus);
         panel.add(nombreValueLabel);
+        
+        // Agregar un JLabel para el apellido
+        JLabel apellidoLabel = new JLabel("Apellido:");
+        panel.add(apellidoLabel); 
 
         // Solicitar el apellido al usuario mediante JOptionPane
         String apellido = JOptionPane.showInputDialog(frame, "Ingrese apellido del Programador");

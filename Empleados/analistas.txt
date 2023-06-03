@@ -1,2 +1,2 @@
-Nombre: Luciano; Apellido: Chagnaud; Legajo: 222; Categoria: Inicial; 
+Nombre: Luciano; Apellido: Chagnaud; Legajo: 002; Categoria: Superior; 
 
