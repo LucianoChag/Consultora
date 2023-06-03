@@ -24,16 +24,11 @@ public class Consultora {
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
 
-        Cliente.registrarCliente(clientes);
-        Analista.registrarAnalista(analistas);
+        
         Programador.registrarProgramador(programadores);
         Programador.registrarDiaProgramador();
         
-        Cliente cliente = Cliente.consultarCliente("rociO", "CalVETe");
-        Analista ana = Analista.consultarAnalista("LucianO", "chagnaud");
         
-        System.out.println(cliente.getNombre() + cliente.getApellido() + cliente.getDireccion());
-        System.out.println(ana.getNombre() + ana.getApellido());
         
         
         

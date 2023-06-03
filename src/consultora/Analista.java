@@ -140,7 +140,7 @@ public class Analista extends Trabajador {
     public static void baseDeDatosAnalista(Analista ana) throws FileNotFoundException, IOException {
         try {
             // Crear un FileWriter para escribir en el archivo de texto
-            FileWriter fileWriter = new FileWriter("Empleados\\analistas.txt", true);
+            FileWriter fileWriter = new FileWriter("Empleados\\Analistas\\analistas.txt", true);
 
             // Crear un BufferedWriter para escribir en el FileWriter
             BufferedWriter writer = new BufferedWriter(fileWriter);
@@ -175,7 +175,7 @@ public class Analista extends Trabajador {
             apellido = apellido.toUpperCase();
             
             // Crear un FileReader para leer el archivo de texto
-            FileReader fileReader = new FileReader("Empleados\\analistas.txt");
+            FileReader fileReader = new FileReader("Empleados\\Analistas\\analistas.txt");
 
             // Crear un BufferedReader para leer el FileReader
             BufferedReader reader = new BufferedReader(fileReader);

@@ -1,0 +1,4 @@
+Nombre: LUCIANO; Apellido: CHAGNAUD; Legajo: 0003; Sueldo por hora: 900.0; 
+
+Nombre: EDUARDO; Apellido: CRUCERO; Legajo: 0001; Sueldo por hora: 900.0; 
+

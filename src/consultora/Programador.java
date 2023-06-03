@@ -160,7 +160,7 @@ public class Programador extends Trabajador {
     public static void baseDeDatosProgramador(Programador prog) {
         try {
             // Crear un FileWriter para escribir en el archivo de texto
-            FileWriter fileWriter = new FileWriter("Empleados\\programadores.txt", true);
+            FileWriter fileWriter = new FileWriter("Empleados\\Programadores\\programadores.txt", true);
 
             // Crear un BufferedWriter para escribir en el FileWriter
             BufferedWriter writer = new BufferedWriter(fileWriter);
@@ -168,20 +168,14 @@ public class Programador extends Trabajador {
             // Obtener los atributos del analista
             String nombre = prog.getNombre();
             String apellido = prog.getApellido();
-            String registroPersonal = nombre + apellido;
             String legajo = prog.getLegajo();
             double precioPorHora = prog.getPxh();
-            File registroDiasTrabajados = new File("Empleados\\RegistroDiasProgramadores\\registro" + registroPersonal + ".txt");
-
-            // Crear el archivo para los registros de días trabajados
-            registroDiasTrabajados.createNewFile();
 
             // Escribir los atributos en el archivo de texto
             writer.write("Nombre: " + nombre + "; ");
             writer.write("Apellido: " + apellido + "; ");
             writer.write("Legajo: " + legajo + "; ");
             writer.write("Sueldo por hora: " + precioPorHora + "; ");
-            writer.write("Registro Personal: " + registroDiasTrabajados);
             writer.newLine();
             writer.newLine();
 
@@ -202,22 +196,56 @@ public class Programador extends Trabajador {
         nombre = nombre.toUpperCase();
         apellido = apellido.toUpperCase();
 
-        JOptionPane.showMessageDialog(null, "Ingrese fecha: ");
+        JOptionPane.showMessageDialog(null, "REGISTRE FECHA TRABAJADA");
         int ano = Integer.parseInt(JOptionPane.showInputDialog("Año: "));
         int mes = Integer.parseInt(JOptionPane.showInputDialog("Mes: "));
         int dia = Integer.parseInt(JOptionPane.showInputDialog("Dia: "));
         LocalDate fecha = LocalDate.of(ano, mes, dia);
+
+        //Creamos una variable que nos permita acceder a la carpeta con el mes correspondiente
+        String mesCarpeta = "";
+
+        //Con un Switch le asignamos valor 
+        switch (mes) {
+            case 1 ->
+                mesCarpeta = "01_ENERO";
+            case 2 ->
+                mesCarpeta = "02_FEBRERO";
+            case 3 ->
+                mesCarpeta = "03_MARZO";
+            case 4 ->
+                mesCarpeta = "04_ABRIL";
+            case 5 ->
+                mesCarpeta = "05_MAYO";
+            case 6 ->
+                mesCarpeta = "06_JUNIO";
+            case 7 ->
+                mesCarpeta = "07_JULIO";
+            case 8 ->
+                mesCarpeta = "08_AGOSTO";
+            case 9 ->
+                mesCarpeta = "09_SEPTIEMBRE";
+            case 10 ->
+                mesCarpeta = "10_OCTUBRE";
+            case 11 ->
+                mesCarpeta = "11_NOVIEMBRE";
+            case 12 ->
+                mesCarpeta = "12_DICIEMBRE";
+
+        }
+
         String horas = JOptionPane.showInputDialog("Ingrese horas trabajadas el " + fecha);
 
-        registrarDiaProgramadorTXT(nombre, apellido, fecha, horas);
+        registrarDiaProgramadorTXT(nombre, apellido, fecha, horas, mesCarpeta);
     }
 
     //Funcion en la que podemos escribir en el TXT
-    public static void registrarDiaProgramadorTXT(String nombre, String apellido, LocalDate fecha, String horas) throws IOException {
+    public static void registrarDiaProgramadorTXT(String nombre, String apellido, LocalDate fecha, String horas, String mesCarpeta) throws IOException {
         try {
             String nombreRegistro = nombre + apellido;
+            String fileName = "Empleados\\Programadores\\RegistroDias\\" + mesCarpeta + "\\" + nombreRegistro + "-" + mesCarpeta + ".txt";
 
-            FileWriter filewriter = new FileWriter("Empleados\\RegistroDiasProgramadores\\registro" + nombreRegistro + ".txt", true);
+            FileWriter filewriter = new FileWriter(fileName, true);
             BufferedWriter writer = new BufferedWriter(filewriter);
 
             writer.write("Fecha: " + fecha + "; ");
