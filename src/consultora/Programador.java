@@ -262,4 +262,33 @@ public class Programador extends Trabajador {
         }
 
     }
+
+    public static int calcularHorasTrabajadasMes(String nombre, String apellido, String mesCarpeta) throws IOException {
+        try {
+            nombre = nombre.toUpperCase();
+            apellido = apellido.toUpperCase();
+            
+            String nombreRegistro = nombre + apellido;
+            String fileName = "Empleados\\Programadores\\RegistroDias\\" + mesCarpeta + "\\" + nombreRegistro + "-" + mesCarpeta + ".txt";
+            int horasMes = 0;
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            String linea;
+            //Bucle para recorrer el archivo
+            while ((linea = reader.readLine()) != null) {
+                if (linea.contains("horas")) {
+                    String[] horasString = linea.split(": ");
+                    int horas = Integer.parseInt(horasString[2]);
+                    horasMes += horas;
+                }
+            }
+            reader.close();
+            return horasMes;
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return 0;
+        }
+
+    }
 }

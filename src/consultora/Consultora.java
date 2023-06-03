@@ -25,9 +25,11 @@ public class Consultora {
         Map<String, Cliente> clientes = new HashMap<>();
 
         
-        Programador.registrarProgramador(programadores);
+        
         Programador.registrarDiaProgramador();
         
+        int horas = Programador.calcularHorasTrabajadasMes("eduardo", "crucero", "04_Abril");
+        System.out.println(horas);
         
         
         
