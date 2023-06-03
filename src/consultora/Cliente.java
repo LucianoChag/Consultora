@@ -53,16 +53,14 @@ public class Cliente {
         this.Pxcobrar = Pxcobrar;
     }
 
-    
-
     //Registra a un Cliente en la base de datos        
     public static void registrarCliente(Map<String, Cliente> clientes) throws IOException {
         // Obtener los datos del programador desde la interfaz gráfica
         Cliente cliente = clienteInterfaz();
-        
+
         // Los guardamos en un HashMap (probablemente saquemos esto
         clientes.put(cliente.getNombre(), cliente);
-        
+
         //Guardamos los atributos del objeto en una base de datos (TXT)
         baseDeDatosCliente(cliente);
     }
@@ -79,23 +77,23 @@ public class Cliente {
         // Agregar un JLabel para el nombre
         JLabel nombreLabel = new JLabel("Nombre:");
         panel.add(nombreLabel);
-        
+
         // Solicitar el nombre al usuario mediante JOptionPane
         String nombre = JOptionPane.showInputDialog(frame, "Ingrese nombre del Cliente");
-        //Modificamos la primer letra a Mayuscula por si el usuario ingreso todo en minusculas
-        String nombreMayus = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
-        JLabel nombreValueLabel = new JLabel(nombreMayus);
+        //Modificamos el nombre para que esté todo en MAYUSCULAS
+        nombre = nombre.toUpperCase();
+        JLabel nombreValueLabel = new JLabel(nombre);
         panel.add(nombreValueLabel);
-        
+
         // Agregar un JLabel para el apellido
         JLabel apellidoLabel = new JLabel("Apellido:");
-        panel.add(apellidoLabel);        
-        
+        panel.add(apellidoLabel);
+
         // Solicitar el apellido al usuario mediante JOptionPane
         String apellido = JOptionPane.showInputDialog(frame, "Ingrese apellido del Cliente");
-        //Modificamos la primer letra a Mayuscula por si el usuario ingreso todo en minusculas
-        String apellidoMayus = apellido.substring(0, 1).toUpperCase() + apellido.substring(1);
-        JLabel apellidoValueLabel = new JLabel(apellidoMayus);
+        //Modificamos el apellido para que esté todo en MAYUSCULAS
+        apellido = apellido.toUpperCase();
+        JLabel apellidoValueLabel = new JLabel(apellido);
         panel.add(apellidoValueLabel);
 
         // Agregar un JLabel para la direccion
@@ -104,6 +102,8 @@ public class Cliente {
 
         // Solicitar la direccion al usuario mediante JOptionPane
         String direccion = JOptionPane.showInputDialog(frame, "Agregue la direccion del cliente");
+        //Modificamos la direccion para que esté todo en MAYUSCULAS
+        direccion = direccion.toUpperCase();
         JLabel direccionValueLabel = new JLabel(direccion);
         panel.add(direccionValueLabel);
 
@@ -125,7 +125,7 @@ public class Cliente {
             double Pxcobrar = Double.parseDouble(PxcobrarString);
 
             // Crear un objeto Programador con los datos ingresados
-            Cliente cliente = new Cliente(nombreMayus,apellidoMayus, direccion, Pxcobrar);
+            Cliente cliente = new Cliente(nombre, apellido, direccion, Pxcobrar);
 
             frame.dispose();
             return cliente;
@@ -167,32 +167,32 @@ public class Cliente {
     }
 
     //Buscar en la Base de Datos un Cliente solicitado por el Usuario
-    public static Cliente consultarCliente(String nombreCliente, String apellidoCliente) {
+    public static Cliente consultarCliente(String nombre, String apellido) {
         try {
-            String nombreMayus = nombreCliente.substring(0, 1).toUpperCase() + nombreCliente.substring(1);
-            String apellidoMayus = apellidoCliente.substring(0, 1).toUpperCase() + apellidoCliente.substring(1);
+            nombre = nombre.toUpperCase();
+            apellido = apellido.toUpperCase();
             // Crear un FileReader para leer el archivo de texto
             FileReader fileReader = new FileReader("Clientes\\clientes.txt");
 
             // Crear un BufferedReader para leer el FileReader
             BufferedReader reader = new BufferedReader(fileReader);
-            
+
             String linea;
             //Bucle para recorrer el archivo
             while ((linea = reader.readLine()) != null) {
                 //Verificamos si el nombre que ingresa el usuario coincide con el nombre en la base de datos
-                if (linea.contains(nombreMayus) & linea.contains(apellidoMayus)) {
+                if (linea.contains(nombre) & linea.contains(apellido)) {
                     // Extraer los valores de los atributos
                     //Lo que hace este metodo es separar el string en distintos substring, utilizando el delimitador ": "
                     //Luego con el [] accedemos al valor y se lo asignamos a una variable.
                     String[] atributos = linea.split(": |; |$ ");
-                    String nombre = atributos[1];
-                    String apellido = atributos[3];
+                    String nombreCliente = atributos[1];
+                    String apellidoCliente = atributos[3];
                     String direccion = atributos[5];
                     String PxcobrarString = atributos[7].replaceAll("\\$", "");
                     double Pxcobrar = Double.parseDouble(PxcobrarString);
                     // Crear un nuevo objeto Cliente con los atributos leídos
-                    Cliente cliente = new Cliente(nombre, apellido, direccion, Pxcobrar);
+                    Cliente cliente = new Cliente(nombreCliente, apellidoCliente, direccion, Pxcobrar);
                     reader.close();
                     JOptionPane.showMessageDialog(null, "Cliente extraido de la base de datos correctamente");
                     return cliente;

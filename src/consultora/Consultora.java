@@ -25,16 +25,18 @@ public class Consultora {
         Map<String, Cliente> clientes = new HashMap<>();
 
         Cliente.registrarCliente(clientes);
-        Cliente cli = Cliente.consultarCliente("zoe", "chagnaud");
-        System.out.println(cli.getNombre() + " " + cli.getApellido() + " " + cli.getDireccion() + " " + cli.getPxcobrar());
-        
-        
         Analista.registrarAnalista(analistas);
-        Analista ana = Analista.consultarAnalista("luciano", "chagnaud");
-        System.out.println(ana.getNombre() + ana.getApellido() + ana.getCategoria());
+        Programador.registrarProgramador(programadores);
+        Programador.registrarDiaProgramador();
         
-        Programador.registrarDiaProgramador();
-        Programador.registrarDiaProgramador();
+        Cliente cliente = Cliente.consultarCliente("rociO", "CalVETe");
+        Analista ana = Analista.consultarAnalista("LucianO", "chagnaud");
+        
+        System.out.println(cliente.getNombre() + cliente.getApellido() + cliente.getDireccion());
+        System.out.println(ana.getNombre() + ana.getApellido());
+        
+        
+        
     }
 
 }

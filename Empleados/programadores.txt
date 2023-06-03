@@ -1,0 +1,2 @@
+Nombre: JUAN CRUZ; Apellido: FILIPPINI; Legajo: 0002; Sueldo por hora: 900.0; Registro Personal: Empleados\RegistroDiasProgramadores\registroJUAN CRUZFILIPPINI.txt
+

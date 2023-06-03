@@ -20,7 +20,7 @@ public class Programador extends Trabajador {
         super(nombre, apellido, legajo);
         this.pxh = pxh;
     }
-    
+
     public Programador(double pxh, String registroDiasTrabajados, String nombre, String apellido, String legajo) {
         super(nombre, apellido, legajo);
         this.pxh = pxh;
@@ -102,22 +102,22 @@ public class Programador extends Trabajador {
 
         // Solicitar el nombre al usuario mediante JOptionPane
         String nombre = JOptionPane.showInputDialog(frame, "Ingrese nombre del Programador");
-        //Modificamos la primer letra a Mayuscula por si el usuario ingreso todo en minusculas
-        String nombreMayus = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
-        JLabel nombreValueLabel = new JLabel(nombreMayus);
+        //Modificamos el nombre para que esté todo en MAYUSCULAS
+        nombre = nombre.toUpperCase();
+        JLabel nombreValueLabel = new JLabel(nombre);
         panel.add(nombreValueLabel);
-        
+
         // Agregar un JLabel para el apellido
         JLabel apellidoLabel = new JLabel("Apellido:");
-        panel.add(apellidoLabel); 
+        panel.add(apellidoLabel);
 
         // Solicitar el apellido al usuario mediante JOptionPane
         String apellido = JOptionPane.showInputDialog(frame, "Ingrese apellido del Programador");
-        //Modificamos la primer letra a Mayuscula por si el usuario ingreso todo en minusculas
-        String apellidoMayus = apellido.substring(0, 1).toUpperCase() + apellido.substring(1);
-        JLabel apellidoValueLabel = new JLabel(apellidoMayus);
+        //Modificamos el apellido para que esté todo en MAYUSCULAS
+        apellido = apellido.toUpperCase();
+        JLabel apellidoValueLabel = new JLabel(apellido);
         panel.add(apellidoValueLabel);
-        
+
         // Agregar un JLabel para el legajo
         JLabel legajoLabel = new JLabel("Legajo:");
         panel.add(legajoLabel);
@@ -145,7 +145,7 @@ public class Programador extends Trabajador {
             double pxh = Double.parseDouble(pxhString);
 
             // Crear un objeto Programador con los datos ingresados
-            Programador prog = new Programador(pxh, nombreMayus, apellidoMayus, legajo);
+            Programador prog = new Programador(pxh, nombre, apellido, legajo);
 
             frame.dispose();
             return prog;
@@ -198,22 +198,22 @@ public class Programador extends Trabajador {
     public static void registrarDiaProgramador() throws IOException {
         String nombre = JOptionPane.showInputDialog("Nombre del programador: ");
         String apellido = JOptionPane.showInputDialog("Apellido del programador: ");
-        
-        String nombreMayus = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
-        String apellidoMayus = apellido.substring(0, 1).toUpperCase() + apellido.substring(1);
-        
+
+        nombre = nombre.toUpperCase();
+        apellido = apellido.toUpperCase();
+
         JOptionPane.showMessageDialog(null, "Ingrese fecha: ");
         int ano = Integer.parseInt(JOptionPane.showInputDialog("Año: "));
         int mes = Integer.parseInt(JOptionPane.showInputDialog("Mes: "));
         int dia = Integer.parseInt(JOptionPane.showInputDialog("Dia: "));
         LocalDate fecha = LocalDate.of(ano, mes, dia);
-        String horas = JOptionPane.showInputDialog("Ingrese horas trabajadas el " + fecha );
+        String horas = JOptionPane.showInputDialog("Ingrese horas trabajadas el " + fecha);
 
-        registrarDiaProgramadorTXT(nombreMayus, apellidoMayus, fecha, horas);
+        registrarDiaProgramadorTXT(nombre, apellido, fecha, horas);
     }
 
     //Funcion en la que podemos escribir en el TXT
-    public static void registrarDiaProgramadorTXT(String nombre, String apellido,  LocalDate fecha, String horas) throws IOException {
+    public static void registrarDiaProgramadorTXT(String nombre, String apellido, LocalDate fecha, String horas) throws IOException {
         try {
             String nombreRegistro = nombre + apellido;
 

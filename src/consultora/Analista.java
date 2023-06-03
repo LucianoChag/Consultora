@@ -80,9 +80,9 @@ public class Analista extends Trabajador {
 
         // Solicitar el nombre al usuario mediante JOptionPane
         String nombre = JOptionPane.showInputDialog(frame, "Ingrese nombre del Analista");
-        //Modificamos la primer letra a Mayuscula por si el usuario ingreso todo en minusculas
-        String nombreMayus = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
-        JLabel nombreValueLabel = new JLabel(nombreMayus);
+        //Modificamos el nombre para que esté todo en MAYUSCULAS
+        nombre = nombre.toUpperCase();
+        JLabel nombreValueLabel = new JLabel(nombre);
         panel.add(nombreValueLabel);
 
         // Agregar un JLabel para el apellido
@@ -91,9 +91,9 @@ public class Analista extends Trabajador {
         
         // Solicitar el apellido al usuario mediante JOptionPane
         String apellido = JOptionPane.showInputDialog(frame, "Ingrese apellido del Analista");
-        //Modificamos la primer letra a Mayuscula por si el usuario ingreso todo en minusculas
-        String apellidoMayus = apellido.substring(0, 1).toUpperCase() + apellido.substring(1);
-        JLabel apellidoValueLabel = new JLabel(apellidoMayus);
+        //Modificamos el apellido para que esté todo en MAYUSCULAS
+        apellido = apellido.toUpperCase();
+        JLabel apellidoValueLabel = new JLabel(apellido);
         panel.add(apellidoValueLabel);
 
         // Agregar un JLabel para el legajo
@@ -125,7 +125,7 @@ public class Analista extends Trabajador {
             String categoria = item.toString();
 
             // Crear un objeto Analista con los datos ingresados
-            Analista analista = new Analista(categoria, nombreMayus, apellidoMayus, legajo);
+            Analista analista = new Analista(categoria, nombre, apellido, legajo);
 
             frame.dispose();
             return analista;
@@ -169,10 +169,10 @@ public class Analista extends Trabajador {
     }
 
     //Buscar en la Base de Datos un Analista solicitado por el Usuario
-    public static Analista consultarAnalista(String nombreAnalista, String apellidoAnalista) {
+    public static Analista consultarAnalista(String nombre, String apellido) {
         try {
-            String nombreMayus = nombreAnalista.substring(0, 1).toUpperCase() + nombreAnalista.substring(1);
-            String apellidoMayus = apellidoAnalista.substring(0, 1).toUpperCase() + apellidoAnalista.substring(1);
+            nombre = nombre.toUpperCase();
+            apellido = apellido.toUpperCase();
             
             // Crear un FileReader para leer el archivo de texto
             FileReader fileReader = new FileReader("Empleados\\analistas.txt");
@@ -184,18 +184,18 @@ public class Analista extends Trabajador {
             //Bucle para recorrer el archivo
             while ((linea = reader.readLine()) != null) {
                 //Verificamos si el nombre que ingresa el usuario coincide con el nombre en la base de datos
-                if (linea.contains(nombreMayus) & linea.contains(apellidoMayus)) {
+                if (linea.contains(nombre) & linea.contains(apellido)) {
                     // Extraer los valores de los atributos
                     //Lo que hace este metodo es separar el string en distintos substring, utilizando el delimitador ": "
                     //Luego con el [] accedemos al valor y se lo asignamos a una variable.
                     String[] atributos = linea.split(": |; ");
-                    String nombre = atributos[1];
-                    String apellido = atributos[3];
+                    String nombreAnalista = atributos[1];
+                    String apellidoAnalista = atributos[3];
                     String legajo = atributos[5];
                     String categoria = atributos[7];
                     
                     // Crear un nuevo objeto Analista con los atributos leídos
-                    Analista analista = new Analista(categoria, nombre, apellido, legajo);
+                    Analista analista = new Analista(categoria, nombreAnalista, apellidoAnalista, legajo);
 
                     reader.close();
                     JOptionPane.showMessageDialog(null, "Analista extraido de la base de datos correctamente");
