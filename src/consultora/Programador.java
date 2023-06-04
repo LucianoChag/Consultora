@@ -114,12 +114,16 @@ public class Programador extends Trabajador {
     }
 
     //Registra a un Programador en la base de datos
-    public static void registrarProgramador() {
-        // Obtener los datos del programador desde la interfaz gráfica
-        Programador prog = programadorInterfaz();
+    public static void registrarProgramador(String nombre, String apellido, String legajo, double pxh) throws IOException {
+        //Pasamos los Strings a MAYUSCULAS para estandarizar la base de datos
+        nombre = nombre.toUpperCase();
+        apellido = apellido.toUpperCase();
+        
+        //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
+        Programador programador = new Programador(pxh, nombre, apellido, legajo);
 
         // Guardamos los datos en la base de datos
-        baseDeDatosProgramador(prog);
+        baseDeDatosProgramador(programador);
     }
 
     //Interfaz para registrar al programador
@@ -192,7 +196,7 @@ public class Programador extends Trabajador {
     }
 
     //Base de datos de los programadores
-    public static void baseDeDatosProgramador(Programador prog) {
+    public static void baseDeDatosProgramador(Programador prog) throws IOException, FileNotFoundException{
         try {
             // Crear un FileWriter para escribir en el archivo de texto
             FileWriter fileWriter = new FileWriter("Empleados\\Programadores\\programadores.txt", true);

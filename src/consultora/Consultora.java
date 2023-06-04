@@ -1,5 +1,6 @@
 package consultora;
 
+import consultora.Interfaces.InterfazPrincipal;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,10 +25,11 @@ public class Consultora {
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
 
+        InterfazPrincipal frame = new InterfazPrincipal();
+        frame.setVisible(true);
         
         
-        double sueldo = Programador.calcularSueldoProgramador("eduardo", "crucEro", "2023", "abRIL");
-        System.out.println(sueldo);
+        
         
         
         

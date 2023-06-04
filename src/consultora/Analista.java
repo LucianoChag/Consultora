@@ -49,86 +49,16 @@ public class Analista extends Trabajador {
     }
 
     //Registra a un Analista en la base de datos
-    public static void registrarAnalista(Map<String, Analista> analistas) throws IOException {
-        // Obtener los datos del analista desde la interfaz gráfica
-        Analista ana = analistaInterfaz();
-
-        //Guardar los analistas en el HashMap 
-        analistas.put(ana.getNombre(), ana);//capaz esta linea habrá que sacarla porque al guardar los datos en una base de datos no hace falta el hashmap
-
-        //Guardar los analistas en una base de datos (txt)
-        baseDeDatosAnalista(ana);
-    }
-
-    //Interfaz para registrar al analista
-    public static Analista analistaInterfaz() {
-        // Crear un JFrame para mostrar la interfaz
-        JFrame frame = new JFrame("Registrar Analista");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Crear un JPanel para contener los componentes
-        JPanel panel = new JPanel();
-
-        // Agregar un JLabel para el nombre
-        JLabel nombreLabel = new JLabel("Nombre:");
-        panel.add(nombreLabel);
-
-        // Solicitar el nombre al usuario mediante JOptionPane
-        String nombre = JOptionPane.showInputDialog(frame, "Ingrese nombre del Analista");
-        //Modificamos el nombre para que esté todo en MAYUSCULAS
+    public static void registrarAnalista(String nombre, String apellido, String legajo, String categoria) throws IOException {
+        //Pasamos los Strings a MAYUSCULAS para estandarizar la base de datos
         nombre = nombre.toUpperCase();
-        JLabel nombreValueLabel = new JLabel(nombre);
-        panel.add(nombreValueLabel);
-
-        // Agregar un JLabel para el apellido
-        JLabel apellidoLabel = new JLabel("Apellido:");
-        panel.add(apellidoLabel); 
-        
-        // Solicitar el apellido al usuario mediante JOptionPane
-        String apellido = JOptionPane.showInputDialog(frame, "Ingrese apellido del Analista");
-        //Modificamos el apellido para que esté todo en MAYUSCULAS
         apellido = apellido.toUpperCase();
-        JLabel apellidoValueLabel = new JLabel(apellido);
-        panel.add(apellidoValueLabel);
-
-        // Agregar un JLabel para el legajo
-        JLabel legajoLabel = new JLabel("Legajo:");
-        panel.add(legajoLabel);
-
-        // Solicitar el legajo al usuario mediante JOptionPane
-        String legajo = JOptionPane.showInputDialog(frame, "Agregue un legajo ÚNICO al Analista que desea registrar");
-        JLabel legajoValueLabel = new JLabel(legajo);
-        panel.add(legajoValueLabel);
-
-        // Agregar un JLabel para la categoría
-        JLabel categoriaLabel = new JLabel("Categoría:");
-        panel.add(categoriaLabel);
-
-        // Crear un JComboBox con las opciones de categoría
-        String[] categorias = {"Inicial", "Intermedio", "Superior"};
-        JComboBox<String> categoriaComboBox = new JComboBox<>(categorias);
-        panel.add(categoriaComboBox);
-
-        // Mostrar un JOptionPane con el panel para obtener la selección del usuario
-        int option = JOptionPane.showOptionDialog(
-                frame, panel, "Registrar Analista",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
-
-        if (option == JOptionPane.OK_OPTION) {
-            // Obtener la categoría seleccionada del JComboBox
-            Object item = categoriaComboBox.getSelectedItem();
-            String categoria = item.toString();
-
-            // Crear un objeto Analista con los datos ingresados
-            Analista analista = new Analista(categoria, nombre, apellido, legajo);
-
-            frame.dispose();
-            return analista;
-
-        } else {
-            return null;
-        }
-
+        
+        //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
+        Analista analista = new Analista(categoria, nombre, apellido, legajo);
+        
+        //Guardar los analistas en una base de datos (txt)
+        baseDeDatosAnalista(analista);
     }
 
     //Base de datos de los analistas

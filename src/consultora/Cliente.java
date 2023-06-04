@@ -2,7 +2,7 @@ package consultora;
 
 import java.io.*;
 import javax.swing.*;
-import java.util.Map;
+
 
 public class Cliente {
 
@@ -54,84 +54,17 @@ public class Cliente {
     }
 
     //Registra a un Cliente en la base de datos        
-    public static void registrarCliente(Map<String, Cliente> clientes) throws IOException {
-        // Obtener los datos del programador desde la interfaz gráfica
-        Cliente cliente = clienteInterfaz();
-
-        // Los guardamos en un HashMap (probablemente saquemos esto
-        clientes.put(cliente.getNombre(), cliente);
+    public static void registrarCliente(String nombre, String apellido, String direccion, double pxh) throws IOException {
+        //Pasamos los Strings a MAYUSCULAS para estandarizar la base de datos
+        nombre = nombre.toUpperCase();
+        apellido = apellido.toUpperCase();
+        direccion = direccion.toUpperCase();
+        
+        //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
+        Cliente cliente = new Cliente(nombre, apellido, direccion, pxh);
 
         //Guardamos los atributos del objeto en una base de datos (TXT)
         baseDeDatosCliente(cliente);
-    }
-
-    //Interfaz para registrar al cliente
-    public static Cliente clienteInterfaz() {
-        // Crear un JFrame para mostrar la interfaz
-        JFrame frame = new JFrame("Registrar Cliente");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Crear un JPanel para contener los componentes
-        JPanel panel = new JPanel();
-
-        // Agregar un JLabel para el nombre
-        JLabel nombreLabel = new JLabel("Nombre:");
-        panel.add(nombreLabel);
-
-        // Solicitar el nombre al usuario mediante JOptionPane
-        String nombre = JOptionPane.showInputDialog(frame, "Ingrese nombre del Cliente");
-        //Modificamos el nombre para que esté todo en MAYUSCULAS
-        nombre = nombre.toUpperCase();
-        JLabel nombreValueLabel = new JLabel(nombre);
-        panel.add(nombreValueLabel);
-
-        // Agregar un JLabel para el apellido
-        JLabel apellidoLabel = new JLabel("Apellido:");
-        panel.add(apellidoLabel);
-
-        // Solicitar el apellido al usuario mediante JOptionPane
-        String apellido = JOptionPane.showInputDialog(frame, "Ingrese apellido del Cliente");
-        //Modificamos el apellido para que esté todo en MAYUSCULAS
-        apellido = apellido.toUpperCase();
-        JLabel apellidoValueLabel = new JLabel(apellido);
-        panel.add(apellidoValueLabel);
-
-        // Agregar un JLabel para la direccion
-        JLabel direccionLabel = new JLabel("Direccion:");
-        panel.add(direccionLabel);
-
-        // Solicitar la direccion al usuario mediante JOptionPane
-        String direccion = JOptionPane.showInputDialog(frame, "Agregue la direccion del cliente");
-        //Modificamos la direccion para que esté todo en MAYUSCULAS
-        direccion = direccion.toUpperCase();
-        JLabel direccionValueLabel = new JLabel(direccion);
-        panel.add(direccionValueLabel);
-
-        // Agregar un JLabel para el precio a cobrar por hora trabajada
-        JLabel PxcobrarLabel = new JLabel("Precio a cobrar por hora: $");
-        panel.add(PxcobrarLabel);
-
-        // Solicitar el precio por hora al usuario mediante JOptionPane
-        String PxcobrarString = JOptionPane.showInputDialog(frame, "Ingrese cuanto se le cobrara al cliente por hora");
-        JLabel PxcobrarValueLabel = new JLabel(PxcobrarString);
-        panel.add(PxcobrarValueLabel);
-
-        // Mostrar un JOptionPane con el panel para obtener la selección del usuario
-        int option = JOptionPane.showOptionDialog(
-                frame, panel, "Registrar Cliente",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
-
-        if (option == JOptionPane.OK_OPTION) {
-            double Pxcobrar = Double.parseDouble(PxcobrarString);
-
-            // Crear un objeto Programador con los datos ingresados
-            Cliente cliente = new Cliente(nombre, apellido, direccion, Pxcobrar);
-
-            frame.dispose();
-            return cliente;
-        } else {
-            return null;
-        }
     }
 
     //Base de datos de los clientes
