@@ -6,6 +6,7 @@ package consultora.Interfaces;
 
 import consultora.Cliente;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,7 +36,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btonRegistrarEmpleado = new javax.swing.JButton();
         btonRegistrarCliente = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnLiquidHaberes = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
@@ -70,7 +71,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Liquidación de Haberes");
+        btnLiquidHaberes.setText("Liquidación de Haberes");
+        btnLiquidHaberes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLiquidHaberesActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Cobro Cliente");
 
@@ -88,7 +94,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     .addComponent(btonRegistrarEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLiquidHaberes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btonRegistrarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -105,7 +111,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btonRegistrarCliente)
                         .addGap(8, 8, 8)
-                        .addComponent(jButton3)
+                        .addComponent(btnLiquidHaberes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -127,6 +133,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         frame.setVisible(true);
         
     }//GEN-LAST:event_btonRegistrarClienteActionPerformed
+
+    private void btnLiquidHaberesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiquidHaberesActionPerformed
+        InterfazLiquidacionHaberes frame = new InterfazLiquidacionHaberes();
+        frame.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_btnLiquidHaberesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,9 +179,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLiquidHaberes;
     private javax.swing.JButton btonRegistrarCliente;
     private javax.swing.JButton btonRegistrarEmpleado;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel2;

@@ -4,3 +4,7 @@ Nombre: JUAN; Apellido: RODRIGUEZ; Legajo: 20; Categoria: Inicial;
 
 Nombre: LUCIANO; Apellido: CHAGNAUD; Legajo: 222; Categoria: Intermedio; 
 
+Nombre: MONEDA; Apellido: SALINAS; Legajo: 0001; Categoria: Inicial; 
+
+Nombre: MONEDA; Apellido: SALINAS; Legajo: 002; Categoria: Inicial; 
+

@@ -52,7 +52,7 @@
                   <Component id="btonRegistrarEmpleado" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
                   <Component id="jButton5" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
                   <Component id="jButton4" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
-                  <Component id="jButton3" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
+                  <Component id="btnLiquidHaberes" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
                   <Component id="btonRegistrarCliente" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -73,7 +73,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btonRegistrarCliente" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnLiquidHaberes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -106,10 +106,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btonRegistrarClienteActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnLiquidHaberes">
       <Properties>
         <Property name="text" type="java.lang.String" value="Liquidaci&#xf3;n de Haberes"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLiquidHaberesActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
       <Properties>

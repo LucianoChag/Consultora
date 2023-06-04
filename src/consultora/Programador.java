@@ -59,53 +59,15 @@ public class Programador extends Trabajador {
     }
 
     //Permite la liquidación de haberes de los programadores
-    public static double calcularSueldoProgramador(String nombre, String apellido, String ano, String mes) throws IOException, NumberFormatException {
+    public static double calcularSueldoProgramador(String nombre, String apellido) throws IOException, NumberFormatException {
         //creamos la variable sueldo
         double sueldo = 0;
 
         //Extraemos al programador solicitado de la base de datos
         Programador programador = consultarProgramador(nombre, apellido);
 
-        //Utilizamos un bloque try-catch por si el usuario ingresa un mes con numeros "03" o con palabras "marzo"
-        try {
-            //En caso de que sea un numero lo verificamos creando esta variable, si logra castearse a int entonces 
-            //se llama a la funcion para estandarizar el mes 
-            int mesInteger = Integer.parseInt(mes);
-            mes = castearMes(mes);
-        } catch (NumberFormatException e) {
-            //En caso de que sea una palabra, larga la excepcion y se estandariza el mes en este bloque
-            mes = mes.toUpperCase();
-            switch (mes) {
-                case "ENERO" ->
-                    mes = "01_" + mes;
-                case "FEBRERO" ->
-                    mes = "02_" + mes;
-                case "MARZO" ->
-                    mes = "03_" + mes;
-                case "ABRIL" ->
-                    mes = "04_" + mes;
-                case "MAYO" ->
-                    mes = "05_" + mes;
-                case "JUNIO" ->
-                    mes = "06_" + mes;
-                case "JULIO" ->
-                    mes = "07_" + mes;
-                case "AGOSTO" ->
-                    mes = "08_" + mes;
-                case "SEPTIEMBRE" ->
-                    mes = "09_" + mes;
-                case "OCTUBRE" ->
-                    mes = "10_" + mes;
-                case "NOVIEMBRE" ->
-                    mes = "11_" + mes;
-                case "DICIEMBRE" ->
-                    mes = "12_" + mes;
-
-            }
-        }
-
         //Calculamos las horas trabajadas en el año y mes solicitado
-        int horas = calcularHorasTrabajadasMes(nombre, apellido, ano, mes);
+        int horas = calcularHorasTrabajadasMes(nombre, apellido, "2022", "03", "12", "2023", "06", "12");
 
         //Calculamos el sueldo que corresponderia en base a las horas trabajadas y cuanto se le paga por hora
         sueldo = programador.getPxh() * horas;
@@ -118,7 +80,7 @@ public class Programador extends Trabajador {
         //Pasamos los Strings a MAYUSCULAS para estandarizar la base de datos
         nombre = nombre.toUpperCase();
         apellido = apellido.toUpperCase();
-        
+
         //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
         Programador programador = new Programador(pxh, nombre, apellido, legajo);
 
@@ -196,7 +158,7 @@ public class Programador extends Trabajador {
     }
 
     //Base de datos de los programadores
-    public static void baseDeDatosProgramador(Programador prog) throws IOException, FileNotFoundException{
+    public static void baseDeDatosProgramador(Programador prog) throws IOException, FileNotFoundException {
         try {
             // Crear un FileWriter para escribir en el archivo de texto
             FileWriter fileWriter = new FileWriter("Empleados\\Programadores\\programadores.txt", true);
@@ -241,52 +203,22 @@ public class Programador extends Trabajador {
         int dia = Integer.parseInt(JOptionPane.showInputDialog("Dia: "));
         LocalDate fecha = LocalDate.of(ano, mes, dia);
 
-        //Creamos una variable que nos permita acceder a la carpeta con el mes correspondiente
-        String mesCarpeta = "";
-
-        //Con un Switch le asignamos valor 
-        switch (mes) {
-            case 1 ->
-                mesCarpeta = "01_ENERO";
-            case 2 ->
-                mesCarpeta = "02_FEBRERO";
-            case 3 ->
-                mesCarpeta = "03_MARZO";
-            case 4 ->
-                mesCarpeta = "04_ABRIL";
-            case 5 ->
-                mesCarpeta = "05_MAYO";
-            case 6 ->
-                mesCarpeta = "06_JUNIO";
-            case 7 ->
-                mesCarpeta = "07_JULIO";
-            case 8 ->
-                mesCarpeta = "08_AGOSTO";
-            case 9 ->
-                mesCarpeta = "09_SEPTIEMBRE";
-            case 10 ->
-                mesCarpeta = "10_OCTUBRE";
-            case 11 ->
-                mesCarpeta = "11_NOVIEMBRE";
-            case 12 ->
-                mesCarpeta = "12_DICIEMBRE";
-
-        }
-
         String horas = JOptionPane.showInputDialog("Ingrese horas trabajadas el " + fecha);
 
-        registrarDiaProgramadorTXT(nombre, apellido, fecha, horas, mesCarpeta);
+        registrarDiaProgramadorTXT(nombre, apellido, fecha, horas);
     }
 
     //Funcion en la que podemos escribir en el TXT
-    public static void registrarDiaProgramadorTXT(String nombre, String apellido, LocalDate fecha, String horas, String mesCarpeta) throws IOException {
+    public static void registrarDiaProgramadorTXT(String nombre, String apellido, LocalDate fechaLocalDate, String horas) throws IOException {
         try {
             String nombreRegistro = nombre + apellido;
-            String fileName = "Empleados\\Programadores\\RegistroDias\\" + mesCarpeta + "\\" + nombreRegistro + "-" + mesCarpeta + ".txt";
+            String fileName = "Empleados\\Programadores\\RegistroPersonal\\" + nombreRegistro + "Personal.txt";
 
             FileWriter filewriter = new FileWriter(fileName, true);
             BufferedWriter writer = new BufferedWriter(filewriter);
 
+            String fecha = fechaLocalDate.toString();
+            fecha = fecha.replace("-", "/");
             writer.write("Fecha: " + fecha + "; ");
             writer.write("horas: " + horas);
             writer.newLine();
@@ -347,36 +279,59 @@ public class Programador extends Trabajador {
     }
 
     //Busca en la base de datos PROPIA de cada programador y retorna las horas trabajadas en un año y mes especifico
-    public static int calcularHorasTrabajadasMes(String nombre, String apellido, String ano, String mesCarpeta) throws IOException {
+    public static int calcularHorasTrabajadasMes(String nombre, String apellido, String anoDesde, String mesDesde, String diaDesde, String anoHasta, String mesHasta, String diaHasta) throws IOException {
         try {
             nombre = nombre.toUpperCase();
             apellido = apellido.toUpperCase();
 
             String nombreRegistro = nombre + apellido;
-            String fileName = "Empleados\\Programadores\\RegistroDias\\" + mesCarpeta + "\\" + nombreRegistro + "-" + mesCarpeta + ".txt";
-            int horasMes = 0;
+            String fileName = "Empleados\\Programadores\\RegistroPersonal\\" + nombreRegistro + "Personal.txt";
+            int horasTrabajadas = 0;
             FileReader fileReader = new FileReader(fileName);
             BufferedReader reader = new BufferedReader(fileReader);
 
             String linea;
-            //Bucle para recorrer el archivo
+            // Bucle para recorrer el archivo
             while ((linea = reader.readLine()) != null) {
-                if (linea.contains(ano) & linea.contains("horas")) {
-                    String[] horasString = linea.split(": ");
-                    int horas = Integer.parseInt(horasString[2]);
-                    horasMes += horas;
+                // Condicion para determinar el año desde y mes desde
+                if (linea.contains(anoDesde)) {
+                    String[] lineaArreglo = linea.split(": |; ");
+                    LocalDate fecha = LocalDate.parse(lineaArreglo[1].trim());
+                    int mesAux = fecha.getMonthValue();
+                    int mesDesdeUsuario = Integer.parseInt(mesDesde);
+                    if (mesAux >= mesDesdeUsuario) {
+                        int diaAux = fecha.getDayOfMonth();
+                        int diaDesdeUsuario = Integer.parseInt(diaDesde);
+                        if (diaAux >= diaDesdeUsuario) {
+                            horasTrabajadas = Integer.parseInt(lineaArreglo[3].trim());
+                            System.out.println(horasTrabajadas);
+                        }
+                    }
+                } else if (linea.contains(anoHasta)) {
+                    String[] lineaArreglo = linea.split(": |; ");
+                    LocalDate fecha = LocalDate.parse(lineaArreglo[1].trim());
+                    int mesAux = fecha.getMonthValue();
+                    int mesHastaUsuario = Integer.parseInt(mesHasta);
+                    if (mesAux <= mesHastaUsuario) {
+                        int diaAux = fecha.getDayOfMonth();
+                        int diaHastaUsuario = Integer.parseInt(diaHasta);
+                        if (diaAux <= diaHastaUsuario) {
+                            horasTrabajadas = Integer.parseInt(lineaArreglo[3].trim());
+                            System.out.println(horasTrabajadas);
+                        }
+                    }
                 }
             }
             reader.close();
-            return horasMes;
+            return horasTrabajadas;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return 0;
         }
 
     }
-    
     //Estandariza el mes por si el usuario ingresa un mes en formato "01" o "ENERO"
+
     public static String castearMes(String mes) {
         if (mes.equals("10")) {
             mes = "10_OCTUBRE";

@@ -45,7 +45,10 @@ public class InterfazRegistroCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro Clientes");
-
+        // Centrar la ventana en una ubicación específica
+        int x = 550; // Coordenada x del punto de referencia
+        int y = 280; // Coordenada y del punto de referencia
+        setLocation(x - getWidth() / 2, y - getHeight() / 2);
         jLabel1.setText("Nombre:");
 
         jLabel2.setText("Apellido: ");

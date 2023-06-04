@@ -44,6 +44,11 @@ public class InterfazRegistroAnalista extends javax.swing.JFrame {
         categoriasComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Registro Analistas");
+        // Centrar la ventana en una ubicación específica
+        int x = 550; // Coordenada x del punto de referencia
+        int y = 280; // Coordenada y del punto de referencia
+        setLocation(x - getWidth() / 2, y - getHeight() / 2);
 
         jLabel1.setText("Nombre:");
 
