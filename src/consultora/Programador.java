@@ -3,13 +3,12 @@ package consultora;
 import java.io.*;
 import javax.swing.*;
 import java.time.LocalDate;
-import java.util.Map;
 
 public class Programador extends Trabajador {
 
     private int hsTrabajadasTotales;
     private int hsTrabajadasMes;
-    private double pxh; //Agregue un atributo pxh en programador para que cada programador cobre distinto en base a lo que la consultora desee
+    private double pxh;
     String registroDiasTrabajados;
 
     public Programador(String nombre, String apellido, String legajo) {
@@ -60,32 +59,67 @@ public class Programador extends Trabajador {
     }
 
     //Permite la liquidación de haberes de los programadores
-    public static double calcularSueldoProgramador(String nombre, String apellido, String ano, String mes) throws IOException {
+    public static double calcularSueldoProgramador(String nombre, String apellido, String ano, String mes) throws IOException, NumberFormatException {
         //creamos la variable sueldo
-        double sueldo = 0; 
-        
+        double sueldo = 0;
+
         //Extraemos al programador solicitado de la base de datos
         Programador programador = consultarProgramador(nombre, apellido);
-        
+
+        //Utilizamos un bloque try-catch por si el usuario ingresa un mes con numeros "03" o con palabras "marzo"
+        try {
+            //En caso de que sea un numero lo verificamos creando esta variable, si logra castearse a int entonces 
+            //se llama a la funcion para estandarizar el mes 
+            int mesInteger = Integer.parseInt(mes);
+            mes = castearMes(mes);
+        } catch (NumberFormatException e) {
+            //En caso de que sea una palabra, larga la excepcion y se estandariza el mes en este bloque
+            mes = mes.toUpperCase();
+            switch (mes) {
+                case "ENERO" ->
+                    mes = "01_" + mes;
+                case "FEBRERO" ->
+                    mes = "02_" + mes;
+                case "MARZO" ->
+                    mes = "03_" + mes;
+                case "ABRIL" ->
+                    mes = "04_" + mes;
+                case "MAYO" ->
+                    mes = "05_" + mes;
+                case "JUNIO" ->
+                    mes = "06_" + mes;
+                case "JULIO" ->
+                    mes = "07_" + mes;
+                case "AGOSTO" ->
+                    mes = "08_" + mes;
+                case "SEPTIEMBRE" ->
+                    mes = "09_" + mes;
+                case "OCTUBRE" ->
+                    mes = "10_" + mes;
+                case "NOVIEMBRE" ->
+                    mes = "11_" + mes;
+                case "DICIEMBRE" ->
+                    mes = "12_" + mes;
+
+            }
+        }
+
         //Calculamos las horas trabajadas en el año y mes solicitado
         int horas = calcularHorasTrabajadasMes(nombre, apellido, ano, mes);
-        
+
         //Calculamos el sueldo que corresponderia en base a las horas trabajadas y cuanto se le paga por hora
-        
         sueldo = programador.getPxh() * horas;
-        
+
         return sueldo;
     }
 
     //Registra a un Programador en la base de datos
-    public static void registrarProgramador(Map<String, Programador> programadores) {
+    public static void registrarProgramador() {
         // Obtener los datos del programador desde la interfaz gráfica
         Programador prog = programadorInterfaz();
 
-        programadores.put(prog.getNombre(), prog);
-
+        // Guardamos los datos en la base de datos
         baseDeDatosProgramador(prog);
-
     }
 
     //Interfaz para registrar al programador
@@ -263,13 +297,13 @@ public class Programador extends Trabajador {
         }
 
     }
-    
-    //Buscar en la Base de Datos un Analista solicitado por el Usuario
+
+    //Buscar en la Base de Datos un Programador solicitado por el Usuario
     public static Programador consultarProgramador(String nombre, String apellido) {
         try {
             nombre = nombre.toUpperCase();
             apellido = apellido.toUpperCase();
-            
+
             // Crear un FileReader para leer el archivo de texto
             FileReader fileReader = new FileReader("Empleados\\Programadores\\programadores.txt");
 
@@ -289,7 +323,7 @@ public class Programador extends Trabajador {
                     String apellidoProgramador = atributos[3];
                     String legajo = atributos[5];
                     double pxh = Double.parseDouble(atributos[7]);
-                    
+
                     // Crear un nuevo objeto Analista con los atributos leídos
                     Programador programador = new Programador(pxh, nombreProgramador, apellidoProgramador, legajo);
 
@@ -308,11 +342,12 @@ public class Programador extends Trabajador {
         }
     }
 
+    //Busca en la base de datos PROPIA de cada programador y retorna las horas trabajadas en un año y mes especifico
     public static int calcularHorasTrabajadasMes(String nombre, String apellido, String ano, String mesCarpeta) throws IOException {
         try {
             nombre = nombre.toUpperCase();
             apellido = apellido.toUpperCase();
-            
+
             String nombreRegistro = nombre + apellido;
             String fileName = "Empleados\\Programadores\\RegistroDias\\" + mesCarpeta + "\\" + nombreRegistro + "-" + mesCarpeta + ".txt";
             int horasMes = 0;
@@ -336,4 +371,40 @@ public class Programador extends Trabajador {
         }
 
     }
+    
+    //Estandariza el mes por si el usuario ingresa un mes en formato "01" o "ENERO"
+    public static String castearMes(String mes) {
+        if (mes.equals("10")) {
+            mes = "10_OCTUBRE";
+            return mes;
+        } else {
+            mes = mes.replaceAll("0", "");
+            switch (mes) {
+                case "1" ->
+                    mes = "01_ENERO";
+                case "2" ->
+                    mes = "02_FEBRERO";
+                case "3" ->
+                    mes = "03_MARZO";
+                case "4" ->
+                    mes = "04_ABRIL";
+                case "5" ->
+                    mes = "05_MAYO";
+                case "6" ->
+                    mes = "06_JUNIO";
+                case "7" ->
+                    mes = "07_JULIO";
+                case "8" ->
+                    mes = "08_AGOSTO";
+                case "9" ->
+                    mes = "09_SEPTIEMBRE";
+                case "11" ->
+                    mes = "11_NOVIEMBRE";
+                case "12" ->
+                    mes = "12_DICIEMBRE";
+            }
+            return mes;
+        }
+    }
+
 }

@@ -26,7 +26,7 @@ public class Consultora {
 
         
         
-        double sueldo = Analista.calcularSueldoAnalista("juan", "alvarez");
+        double sueldo = Programador.calcularSueldoProgramador("eduardo", "crucEro", "2023", "abRIL");
         System.out.println(sueldo);
         
         
