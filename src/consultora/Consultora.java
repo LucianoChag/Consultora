@@ -26,10 +26,10 @@ public class Consultora {
 
         
         
-        Programador.registrarDiaProgramador();
+        double sueldo = Analista.calcularSueldoAnalista("juan", "alvarez");
+        System.out.println(sueldo);
         
-        int horas = Programador.calcularHorasTrabajadasMes("eduardo", "crucero", "04_Abril");
-        System.out.println(horas);
+        
         
         
         

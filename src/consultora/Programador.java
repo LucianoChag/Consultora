@@ -60,19 +60,20 @@ public class Programador extends Trabajador {
     }
 
     //Permite la liquidación de haberes de los programadores
-    public static double calcularSueldoProgramador(Map<String, Programador> programadores, String nombre) {
-        double sueldo = 0; //creamos la variable sueldo
-        //Asignamos a una variable auxiliar el nombre del programador y el objeto programador
-        for (Map.Entry<String, Programador> entry : programadores.entrySet()) {
-            String nombreAux = entry.getKey();
-            Programador prog = entry.getValue();
-            //Si el nombre del analista == al nombre que ingresa el usuario
-            if (nombre.equals(nombreAux)) {
-                sueldo = prog.getHsTrabajadasTotales() * prog.getPxh();
-                break;//Finalizamos el bucle ya que encontramos al programador requerido
-            }
-
-        }
+    public static double calcularSueldoProgramador(String nombre, String apellido, String ano, String mes) throws IOException {
+        //creamos la variable sueldo
+        double sueldo = 0; 
+        
+        //Extraemos al programador solicitado de la base de datos
+        Programador programador = consultarProgramador(nombre, apellido);
+        
+        //Calculamos las horas trabajadas en el año y mes solicitado
+        int horas = calcularHorasTrabajadasMes(nombre, apellido, ano, mes);
+        
+        //Calculamos el sueldo que corresponderia en base a las horas trabajadas y cuanto se le paga por hora
+        
+        sueldo = programador.getPxh() * horas;
+        
         return sueldo;
     }
 
@@ -262,8 +263,52 @@ public class Programador extends Trabajador {
         }
 
     }
+    
+    //Buscar en la Base de Datos un Analista solicitado por el Usuario
+    public static Programador consultarProgramador(String nombre, String apellido) {
+        try {
+            nombre = nombre.toUpperCase();
+            apellido = apellido.toUpperCase();
+            
+            // Crear un FileReader para leer el archivo de texto
+            FileReader fileReader = new FileReader("Empleados\\Programadores\\programadores.txt");
 
-    public static int calcularHorasTrabajadasMes(String nombre, String apellido, String mesCarpeta) throws IOException {
+            // Crear un BufferedReader para leer el FileReader
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            String linea;
+            //Bucle para recorrer el archivo
+            while ((linea = reader.readLine()) != null) {
+                //Verificamos si el nombre que ingresa el usuario coincide con el nombre en la base de datos
+                if (linea.contains(nombre) & linea.contains(apellido)) {
+                    // Extraer los valores de los atributos
+                    //Lo que hace este metodo es separar el string en distintos substring, utilizando el delimitador ": "
+                    //Luego con el [] accedemos al valor y se lo asignamos a una variable.
+                    String[] atributos = linea.split(": |; ");
+                    String nombreProgramador = atributos[1];
+                    String apellidoProgramador = atributos[3];
+                    String legajo = atributos[5];
+                    double pxh = Double.parseDouble(atributos[7]);
+                    
+                    // Crear un nuevo objeto Analista con los atributos leídos
+                    Programador programador = new Programador(pxh, nombreProgramador, apellidoProgramador, legajo);
+
+                    reader.close();
+                    JOptionPane.showMessageDialog(null, "Programador extraido de la base de datos correctamente");
+                    return programador;
+                }
+            }
+            reader.close();
+            //Si no se encuentra retornar null
+            return null;
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al extraer programador de la base de datos. " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static int calcularHorasTrabajadasMes(String nombre, String apellido, String ano, String mesCarpeta) throws IOException {
         try {
             nombre = nombre.toUpperCase();
             apellido = apellido.toUpperCase();
@@ -277,7 +322,7 @@ public class Programador extends Trabajador {
             String linea;
             //Bucle para recorrer el archivo
             while ((linea = reader.readLine()) != null) {
-                if (linea.contains("horas")) {
+                if (linea.contains(ano) & linea.contains("horas")) {
                     String[] horasString = linea.split(": ");
                     int horas = Integer.parseInt(horasString[2]);
                     horasMes += horas;

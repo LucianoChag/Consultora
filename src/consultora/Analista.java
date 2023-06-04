@@ -28,28 +28,23 @@ public class Analista extends Trabajador {
     
 
     //Permite la liquidación de haberes de los analistas
-    public static double calcularSueldoAnalista(Map<String, Analista> analistas, String nombre) {
-        double sueldo = 0; //creamos la variable sueldo
-        //Asignamos a una variable auxiliar el nombre del analista y el objeto analista
-        for (Map.Entry<String, Analista> entry : analistas.entrySet()) {
-            String nombreAux = entry.getKey();
-            Analista ana = entry.getValue();
-            //Si el nombre del analista == al nombre que ingresa el usuario
-            if (nombre.equals(nombreAux)) {
-                //calculamos su sueldo en base a su categoria
-                switch (ana.getCategoria()) {
-                    case "Inicial" ->
-                        sueldo = 20000;
-                    case "Intermedio" ->
-                        sueldo = 40000;
-                    case "Superior" ->
-                        sueldo = 70000;
-                }
-                break; //Finalizamos el bucle ya que encontramos al analista requerido        
-            }
-            //Deberiamos agregar condicion en caso de que no encuentre al analista
-
+    public static double calcularSueldoAnalista(String nombre, String apellido) {
+        //creamos la variable sueldo
+        double sueldo = 0; 
+        
+        //Extraemos de la base de datos el analista solicitado
+        Analista analista = consultarAnalista(nombre, apellido);
+        
+        //Calculamos el sueldo en base a su categoria
+        switch (analista.getCategoria()){
+            case "Inicial" ->
+                sueldo = 70000;
+            case "Intermedio" ->
+                sueldo = 120000;
+            case "Superior" ->
+                sueldo = 200000;
         }
+        
         return sueldo;
     }
 
