@@ -147,11 +147,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLiquidHaberesActionPerformed
 
     private void btonOtrasOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonOtrasOpcionesActionPerformed
-         InterfazOtrasOpciones frame = new InterfazOtrasOpciones();
+        InterfazOtrasOpciones frame = new InterfazOtrasOpciones();
         frame.setVisible(true);
         dispose();
     }//GEN-LAST:event_btonOtrasOpcionesActionPerformed
- 
 
     /**
      * @param args the command line arguments

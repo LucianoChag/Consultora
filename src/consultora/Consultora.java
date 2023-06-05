@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Consultora {
 
     public Map<String, Analista> analistas;
@@ -17,28 +16,17 @@ public class Consultora {
         programadores = new HashMap<>();
         clientes = new HashMap<>();
     }
-    
-
 
     public static void main(String[] args) throws IOException {
         Map<String, Analista> analistas = new HashMap<>();
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
+//
+//        double sueldo = Programador.calcularSueldoProgramador("luciano", "Chagnaud");
+//        System.out.println(sueldo);
+        InterfazPrincipal frame = new InterfazPrincipal();
+        frame.setVisible(true);
 
-        
-        double sueldo = Programador.calcularSueldoProgramador("luciano", "Chagnaud");
-        System.out.println(sueldo);   
-     InterfazPrincipal frame = new InterfazPrincipal();
-     frame.setVisible(true);
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
 
 }
