@@ -1,23 +1,30 @@
 package consultora;
 
-import java.util.ArrayList;
+import java.io.*;
+import javax.swing.*;
+import java.time.LocalDate;
 
-public class Programador extends Trabajador{
+public class Programador extends Trabajador {
+
     private int hsTrabajadasTotales;
     private int hsTrabajadasMes;
-    private double pxh; //Agregue un atributo pxh en programador para que cada programador cobre distinto en base a lo que la consultora desee
-    public ArrayList<DiasyHoras> mes;
+    private double pxh;
+    String registroDiasTrabajados;
 
-    public Programador(String nombre, String legajo) {
-        super(nombre, legajo);
+    public Programador(String nombre, String apellido, String legajo) {
+        super(nombre, apellido, legajo);
     }
 
-    public Programador(double pxh, String nombre, String legajo) {
-        super(nombre, legajo);
+    public Programador(double pxh, String nombre, String apellido, String legajo) {
+        super(nombre, apellido, legajo);
         this.pxh = pxh;
     }
 
-    
+    public Programador(double pxh, String registroDiasTrabajados, String nombre, String apellido, String legajo) {
+        super(nombre, apellido, legajo);
+        this.pxh = pxh;
+        this.registroDiasTrabajados = registroDiasTrabajados;
+    }
 
     public int getHsTrabajadasTotales() {
         return hsTrabajadasTotales;
@@ -43,16 +50,320 @@ public class Programador extends Trabajador{
         this.pxh = pxh;
     }
 
-    public ArrayList<DiasyHoras> getMes() {
-        return mes;
+    public String getRegistroDiasTrabajados() {
+        return registroDiasTrabajados;
     }
 
-    public void setMes(ArrayList<DiasyHoras> mes) {
-        this.mes = mes;
+    public void setRegistroDiasTrabajados(String registroDiasTrabajados) {
+        this.registroDiasTrabajados = registroDiasTrabajados;
     }
-    
-    
-    
-    
-    
+
+    //Permite la liquidación de haberes de los programadores
+    public static double calcularSueldoProgramador(String nombre, String apellido) throws IOException, NumberFormatException {
+        //creamos la variable sueldo
+        double sueldo = 0;
+
+        //Extraemos al programador solicitado de la base de datos
+        Programador programador = consultarProgramador(nombre, apellido);
+
+        //Calculamos las horas trabajadas en el año y mes solicitado
+        int horas = calcularHorasTrabajadasMes(nombre, apellido, "2022", "03", "12", "2023", "06", "12");
+
+        //Calculamos el sueldo que corresponderia en base a las horas trabajadas y cuanto se le paga por hora
+        sueldo = programador.getPxh() * horas;
+
+        return sueldo;
+    }
+
+    //Registra a un Programador en la base de datos
+    public static void registrarProgramador(String nombre, String apellido, String legajo, double pxh) throws IOException {
+        //Pasamos los Strings a MAYUSCULAS para estandarizar la base de datos
+        nombre = nombre.toUpperCase();
+        apellido = apellido.toUpperCase();
+
+        //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
+        Programador programador = new Programador(pxh, nombre, apellido, legajo);
+
+        // Guardamos los datos en la base de datos
+        baseDeDatosProgramador(programador);
+    }
+
+    //Interfaz para registrar al programador
+    public static Programador programadorInterfaz() {
+        // Crear un JFrame para mostrar la interfaz
+        JFrame frame = new JFrame("Registrar Programador");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Crear un JPanel para contener los componentes
+        JPanel panel = new JPanel();
+
+        // Agregar un JLabel para el nombre
+        JLabel nombreLabel = new JLabel("Nombre:");
+        panel.add(nombreLabel);
+
+        // Solicitar el nombre al usuario mediante JOptionPane
+        String nombre = JOptionPane.showInputDialog(frame, "Ingrese nombre del Programador");
+        //Modificamos el nombre para que esté todo en MAYUSCULAS
+        nombre = nombre.toUpperCase();
+        JLabel nombreValueLabel = new JLabel(nombre);
+        panel.add(nombreValueLabel);
+
+        // Agregar un JLabel para el apellido
+        JLabel apellidoLabel = new JLabel("Apellido:");
+        panel.add(apellidoLabel);
+
+        // Solicitar el apellido al usuario mediante JOptionPane
+        String apellido = JOptionPane.showInputDialog(frame, "Ingrese apellido del Programador");
+        //Modificamos el apellido para que esté todo en MAYUSCULAS
+        apellido = apellido.toUpperCase();
+        JLabel apellidoValueLabel = new JLabel(apellido);
+        panel.add(apellidoValueLabel);
+
+        // Agregar un JLabel para el legajo
+        JLabel legajoLabel = new JLabel("Legajo:");
+        panel.add(legajoLabel);
+
+        // Solicitar el legajo al usuario mediante JOptionPane
+        String legajo = JOptionPane.showInputDialog(frame, "Agregue un legajo ÚNICO al Programador que desea registrar");
+        JLabel legajoValueLabel = new JLabel(legajo);
+        panel.add(legajoValueLabel);
+
+        // Agregar un JLabel para el precio a pagar por hora trabajada
+        JLabel pxhLabel = new JLabel("Precio por hora: $");
+        panel.add(pxhLabel);
+
+        // Solicitar el precio por hora al usuario mediante JOptionPane
+        String pxhString = JOptionPane.showInputDialog(frame, "Ingrese cuanto le pagará al programador por hora");
+        JLabel pxhValueLabel = new JLabel(pxhString);
+        panel.add(pxhValueLabel);
+
+        // Mostrar un JOptionPane con el panel para obtener la selección del usuario
+        int option = JOptionPane.showOptionDialog(
+                frame, panel, "Registrar Programador",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+
+        if (option == JOptionPane.OK_OPTION) {
+            double pxh = Double.parseDouble(pxhString);
+
+            // Crear un objeto Programador con los datos ingresados
+            Programador prog = new Programador(pxh, nombre, apellido, legajo);
+
+            frame.dispose();
+            return prog;
+
+        } else {
+            return null;
+        }
+
+    }
+
+    //Base de datos de los programadores
+    public static void baseDeDatosProgramador(Programador prog) throws IOException, FileNotFoundException {
+        try {
+            // Crear un FileWriter para escribir en el archivo de texto
+            FileWriter fileWriter = new FileWriter("Empleados\\Programadores\\programadores.txt", true);
+
+            // Crear un BufferedWriter para escribir en el FileWriter
+            BufferedWriter writer = new BufferedWriter(fileWriter);
+
+            // Obtener los atributos del analista
+            String nombre = prog.getNombre();
+            String apellido = prog.getApellido();
+            String legajo = prog.getLegajo();
+            double precioPorHora = prog.getPxh();
+
+            // Escribir los atributos en el archivo de texto
+            writer.write("Nombre: " + nombre + "; ");
+            writer.write("Apellido: " + apellido + "; ");
+            writer.write("Legajo: " + legajo + "; ");
+            writer.write("Sueldo por hora: " + precioPorHora + "; ");
+            writer.newLine();
+            writer.newLine();
+
+            // Cerrar el BufferedWriter
+            writer.close();
+
+            JOptionPane.showMessageDialog(null, "Programador registrado exitosamente");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar al Programador " + e.getMessage());
+        }
+    }
+
+    //Base de datos PROPIA de cada programador, donde se registran horas y dias trabajados
+    public static void registrarDiaProgramador() throws IOException {
+        String nombre = JOptionPane.showInputDialog("Nombre del programador: ");
+        String apellido = JOptionPane.showInputDialog("Apellido del programador: ");
+
+        nombre = nombre.toUpperCase();
+        apellido = apellido.toUpperCase();
+
+        JOptionPane.showMessageDialog(null, "REGISTRE FECHA TRABAJADA");
+        int ano = Integer.parseInt(JOptionPane.showInputDialog("Año: "));
+        int mes = Integer.parseInt(JOptionPane.showInputDialog("Mes: "));
+        int dia = Integer.parseInt(JOptionPane.showInputDialog("Dia: "));
+        LocalDate fecha = LocalDate.of(ano, mes, dia);
+
+        String horas = JOptionPane.showInputDialog("Ingrese horas trabajadas el " + fecha);
+
+        registrarDiaProgramadorTXT(nombre, apellido, fecha, horas);
+    }
+
+    //Funcion en la que podemos escribir en el TXT
+    public static void registrarDiaProgramadorTXT(String nombre, String apellido, LocalDate fechaLocalDate, String horas) throws IOException {
+        try {
+            String nombreRegistro = nombre + apellido;
+            String fileName = "Empleados\\Programadores\\RegistroPersonal\\" + nombreRegistro + "Personal.txt";
+
+            FileWriter filewriter = new FileWriter(fileName, true);
+            BufferedWriter writer = new BufferedWriter(filewriter);
+
+            String fecha = fechaLocalDate.toString();
+            fecha = fecha.replace("-", "/");
+            writer.write("Fecha: " + fecha + "; ");
+            writer.write("horas: " + horas);
+            writer.newLine();
+            writer.newLine();
+
+            // Cerrar el BufferedWriter
+            writer.close();
+
+            JOptionPane.showMessageDialog(null, "Registro existoso");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error en el registro" + e.getMessage());
+        }
+
+    }
+
+    //Buscar en la Base de Datos un Programador solicitado por el Usuario
+    public static Programador consultarProgramador(String nombre, String apellido) {
+        try {
+            nombre = nombre.toUpperCase();
+            apellido = apellido.toUpperCase();
+
+            // Crear un FileReader para leer el archivo de texto
+            FileReader fileReader = new FileReader("Empleados\\Programadores\\programadores.txt");
+
+            // Crear un BufferedReader para leer el FileReader
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            String linea;
+            //Bucle para recorrer el archivo
+            while ((linea = reader.readLine()) != null) {
+                //Verificamos si el nombre que ingresa el usuario coincide con el nombre en la base de datos
+                if (linea.contains(nombre) & linea.contains(apellido)) {
+                    // Extraer los valores de los atributos
+                    //Lo que hace este metodo es separar el string en distintos substring, utilizando el delimitador ": "
+                    //Luego con el [] accedemos al valor y se lo asignamos a una variable.
+                    String[] atributos = linea.split(": |; ");
+                    String nombreProgramador = atributos[1];
+                    String apellidoProgramador = atributos[3];
+                    String legajo = atributos[5];
+                    double pxh = Double.parseDouble(atributos[7]);
+
+                    // Crear un nuevo objeto Analista con los atributos leídos
+                    Programador programador = new Programador(pxh, nombreProgramador, apellidoProgramador, legajo);
+
+                    reader.close();
+                    JOptionPane.showMessageDialog(null, "Programador extraido de la base de datos correctamente");
+                    return programador;
+                }
+            }
+            reader.close();
+            //Si no se encuentra retornar null
+            return null;
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al extraer programador de la base de datos. " + e.getMessage());
+            return null;
+        }
+    }
+
+    //Busca en la base de datos PROPIA de cada programador y retorna las horas trabajadas en un año y mes especifico
+    public static int calcularHorasTrabajadasMes(String nombre, String apellido, String anoDesde, String mesDesde, String diaDesde, String anoHasta, String mesHasta, String diaHasta) throws IOException {
+        try {
+            nombre = nombre.toUpperCase();
+            apellido = apellido.toUpperCase();
+
+            String nombreRegistro = nombre + apellido;
+            String fileName = "Empleados\\Programadores\\RegistroPersonal\\" + nombreRegistro + "Personal.txt";
+            int horasTrabajadas = 0;
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            String linea;
+            // Bucle para recorrer el archivo
+            while ((linea = reader.readLine()) != null) {
+                // Condicion para determinar el año desde y mes desde
+                if (linea.contains(anoDesde)) {
+                    String[] lineaArreglo = linea.split(": |; ");
+                    LocalDate fecha = LocalDate.parse(lineaArreglo[1].trim());
+                    int mesAux = fecha.getMonthValue();
+                    int mesDesdeUsuario = Integer.parseInt(mesDesde);
+                    if (mesAux >= mesDesdeUsuario) {
+                        int diaAux = fecha.getDayOfMonth();
+                        int diaDesdeUsuario = Integer.parseInt(diaDesde);
+                        if (diaAux >= diaDesdeUsuario) {
+                            horasTrabajadas = Integer.parseInt(lineaArreglo[3].trim());
+                            System.out.println(horasTrabajadas);
+                        }
+                    }
+                } else if (linea.contains(anoHasta)) {
+                    String[] lineaArreglo = linea.split(": |; ");
+                    LocalDate fecha = LocalDate.parse(lineaArreglo[1].trim());
+                    int mesAux = fecha.getMonthValue();
+                    int mesHastaUsuario = Integer.parseInt(mesHasta);
+                    if (mesAux <= mesHastaUsuario) {
+                        int diaAux = fecha.getDayOfMonth();
+                        int diaHastaUsuario = Integer.parseInt(diaHasta);
+                        if (diaAux <= diaHastaUsuario) {
+                            horasTrabajadas = Integer.parseInt(lineaArreglo[3].trim());
+                            System.out.println(horasTrabajadas);
+                        }
+                    }
+                }
+            }
+            reader.close();
+            return horasTrabajadas;
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return 0;
+        }
+
+    }
+    //Estandariza el mes por si el usuario ingresa un mes en formato "01" o "ENERO"
+
+    public static String castearMes(String mes) {
+        if (mes.equals("10")) {
+            mes = "10_OCTUBRE";
+            return mes;
+        } else {
+            mes = mes.replaceAll("0", "");
+            switch (mes) {
+                case "1" ->
+                    mes = "01_ENERO";
+                case "2" ->
+                    mes = "02_FEBRERO";
+                case "3" ->
+                    mes = "03_MARZO";
+                case "4" ->
+                    mes = "04_ABRIL";
+                case "5" ->
+                    mes = "05_MAYO";
+                case "6" ->
+                    mes = "06_JUNIO";
+                case "7" ->
+                    mes = "07_JULIO";
+                case "8" ->
+                    mes = "08_AGOSTO";
+                case "9" ->
+                    mes = "09_SEPTIEMBRE";
+                case "11" ->
+                    mes = "11_NOVIEMBRE";
+                case "12" ->
+                    mes = "12_DICIEMBRE";
+            }
+            return mes;
+        }
+    }
+
 }
