@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Lucia/OneDrive/Escritorio/Consultora/src/consultora/Programador.java</file>
-            <file>file:/C:/Users/Lucia/OneDrive/Escritorio/Consultora/src/consultora/Cliente.java</file>
-            <file>file:/C:/Users/Lucia/OneDrive/Escritorio/Consultora/src/consultora/DiasyHoras.java</file>
-            <file>file:/C:/Users/Lucia/OneDrive/Escritorio/Consultora/src/consultora/Analista.java</file>
-            <file>file:/C:/Users/Lucia/OneDrive/Escritorio/Consultora/src/consultora/Consultora.java</file>
-            <file>file:/C:/Users/Lucia/OneDrive/Escritorio/Consultora/src/consultora/Trabajador.java</file>
+            <file>file:/C:/Users/untalwe/Documents/NetBeansProjects/Consultora/src/consultora/Interfaces/InterfazLiquidacionHaberes.java</file>
+            <file>file:/C:/Users/untalwe/Documents/NetBeansProjects/Consultora/src/consultora/Interfaces/InterfazRegistroProgramador.java</file>
+            <file>file:/C:/Users/untalwe/Documents/NetBeansProjects/Consultora/src/consultora/Interfaces/InterfazRegistroEmpleado.java</file>
+            <file>file:/C:/Users/untalwe/Documents/NetBeansProjects/Consultora/src/consultora/Consultora.java</file>
         </group>
     </open-files>
 </project-private>

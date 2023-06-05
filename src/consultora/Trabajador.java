@@ -1,30 +1,34 @@
-
 package consultora;
 
-
-
-
 public class Trabajador {    
-    private String nombreYapellido;
+    private String nombre;
+    private String apellido;
     private String legajo;
     
     public Trabajador() {
     }
 
-    public Trabajador(String nombreYapellido, String legajo) {
-        this.nombreYapellido = nombreYapellido;
+    public Trabajador(String nombre, String apellido, String legajo) {
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.legajo = legajo;
     }
 
-    public String getNombreYapellido() {
-        return nombreYapellido;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreYapellido(String nombreYapellido) {
-        this.nombreYapellido = nombreYapellido;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 
     public String getLegajo() {
         return legajo;
@@ -33,6 +37,8 @@ public class Trabajador {
     public void setLegajo(String legajo) {
         this.legajo = legajo;
     }
+
+    
     
     
     
