@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package consultora.Interfaces;
 
 import consultora.Cliente;
@@ -10,15 +7,9 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Luciano Chagnaud
- */
+
 public class InterfazPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Interfaz
-     */
     public InterfazPrincipal() {
         initComponents();
     }
@@ -37,8 +28,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         btonRegistrarEmpleado = new javax.swing.JButton();
         btonRegistrarCliente = new javax.swing.JButton();
         btnLiquidHaberes = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btonCobroCliente = new javax.swing.JButton();
+        btonOtrasOpciones = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -78,9 +69,19 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Cobro Cliente");
+        btonCobroCliente.setText("Cobro Cliente");
+        btonCobroCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btonCobroClienteActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Otras Opciones");
+        btonOtrasOpciones.setText("Otras Opciones");
+        btonOtrasOpciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btonOtrasOpcionesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,8 +93,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btonRegistrarEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btonOtrasOpciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btonCobroCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLiquidHaberes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btonRegistrarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -113,33 +114,45 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(btnLiquidHaberes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btonCobroCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5)))
+                        .addComponent(btonOtrasOpciones)))
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btonRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonRegistrarEmpleadoActionPerformed
-        InterfazRegistroEmpleado frame = new InterfazRegistroEmpleado();
+        RegistroEmpleado frame = new RegistroEmpleado();
         frame.setVisible(true);
         dispose();
     }//GEN-LAST:event_btonRegistrarEmpleadoActionPerformed
 
     private void btonRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonRegistrarClienteActionPerformed
-        InterfazRegistroCliente frame = new InterfazRegistroCliente();
+        RegistroCliente frame = new RegistroCliente();
         frame.setVisible(true);
-        
+
     }//GEN-LAST:event_btonRegistrarClienteActionPerformed
 
     private void btnLiquidHaberesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiquidHaberesActionPerformed
-        InterfazLiquidacionHaberes frame = new InterfazLiquidacionHaberes();
+        LiquidacionHaberes frame = new LiquidacionHaberes();
         frame.setVisible(true);
         dispose();
-        
+
     }//GEN-LAST:event_btnLiquidHaberesActionPerformed
+
+    private void btonOtrasOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonOtrasOpcionesActionPerformed
+        OtrasOpciones frame = new OtrasOpciones();
+        frame.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btonOtrasOpcionesActionPerformed
+
+    private void btonCobroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonCobroClienteActionPerformed
+        CobroCliente frame = new CobroCliente();
+        frame.setVisible(true);
+    }//GEN-LAST:event_btonCobroClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,6 +181,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -177,17 +192,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         });
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLiquidHaberes;
+    private javax.swing.JButton btonCobroCliente;
+    private javax.swing.JButton btonOtrasOpciones;
     private javax.swing.JButton btonRegistrarCliente;
     private javax.swing.JButton btonRegistrarEmpleado;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
-    
-    
 
 }

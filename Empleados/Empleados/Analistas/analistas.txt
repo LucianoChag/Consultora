@@ -1,0 +1,14 @@
+Nombre: JUAN ; Apellido: ALVAREZ; Legajo: 0002; Categoria: Inicial; 
+
+Nombre: JUAN; Apellido: RODRIGUEZ; Legajo: 20; Categoria: Inicial; 
+
+Nombre: LUCIANO; Apellido: CHAGNAUD; Legajo: 222; Categoria: Intermedio; 
+
+Nombre: MONEDA; Apellido: SALINAS; Legajo: 0001; Categoria: Inicial; 
+
+Nombre: MONEDA; Apellido: SALINAS; Legajo: 002; Categoria: Inicial; 
+
+Nombre: FRANCO; Apellido: VIDELA; Legajo: 56653; Categoria: Intermedio; 
+
+Nombre: JUAN; Apellido: PINTUS; Legajo: 2222; Categoria: Inicial; 
+

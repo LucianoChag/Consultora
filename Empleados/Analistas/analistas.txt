@@ -8,3 +8,5 @@ Nombre: MONEDA; Apellido: SALINAS; Legajo: 0001; Categoria: Inicial;
 
 Nombre: MONEDA; Apellido: SALINAS; Legajo: 002; Categoria: Inicial; 
 
+Nombre: FRANCO; Apellido: VIDELA; Legajo: 56653; Categoria: Intermedio; 
+
