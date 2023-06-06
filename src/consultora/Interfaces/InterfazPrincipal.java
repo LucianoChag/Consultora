@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package consultora.Interfaces;
 
 import consultora.Cliente;
@@ -10,15 +7,9 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Luciano Chagnaud
- */
+
 public class InterfazPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Interfaz
-     */
     public InterfazPrincipal() {
         initComponents();
     }
@@ -134,32 +125,32 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btonRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonRegistrarEmpleadoActionPerformed
-        InterfazRegistroEmpleado frame = new InterfazRegistroEmpleado();
+        RegistroEmpleado frame = new RegistroEmpleado();
         frame.setVisible(true);
         dispose();
     }//GEN-LAST:event_btonRegistrarEmpleadoActionPerformed
 
     private void btonRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonRegistrarClienteActionPerformed
-        InterfazRegistroCliente frame = new InterfazRegistroCliente();
+        RegistroCliente frame = new RegistroCliente();
         frame.setVisible(true);
 
     }//GEN-LAST:event_btonRegistrarClienteActionPerformed
 
     private void btnLiquidHaberesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiquidHaberesActionPerformed
-        InterfazLiquidacionHaberes frame = new InterfazLiquidacionHaberes();
+        LiquidacionHaberes frame = new LiquidacionHaberes();
         frame.setVisible(true);
         dispose();
 
     }//GEN-LAST:event_btnLiquidHaberesActionPerformed
 
     private void btonOtrasOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonOtrasOpcionesActionPerformed
-        InterfazOtrasOpciones frame = new InterfazOtrasOpciones();
+        OtrasOpciones frame = new OtrasOpciones();
         frame.setVisible(true);
         dispose();
     }//GEN-LAST:event_btonOtrasOpcionesActionPerformed
 
     private void btonCobroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonCobroClienteActionPerformed
-        InterfazCobroCliente frame = new InterfazCobroCliente();
+        CobroCliente frame = new CobroCliente();
         frame.setVisible(true);
     }//GEN-LAST:event_btonCobroClienteActionPerformed
 
