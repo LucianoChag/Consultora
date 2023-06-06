@@ -70,7 +70,8 @@ public class Programador extends Trabajador {
         Programador programador = consultarProgramador(nombre, apellido);
 
         //Calculamos las horas trabajadas en el año y mes solicitado
-        int horas = calcularHorasTrabajadasMes(nombre, apellido, fechaDesde, fechaHasta);
+        boolean soloHoras = false;
+        int horas = calcularHorasTrabajadasMes(nombre, apellido, fechaDesde, fechaHasta, soloHoras);
 
         //Calculamos el sueldo que corresponderia en base a las horas trabajadas y cuanto se le paga por hora
         sueldo = programador.getPxh() * horas;
@@ -149,7 +150,7 @@ public class Programador extends Trabajador {
             apellido = apellido.toUpperCase();
             String nombreRegistro = nombre + apellido;
             String fileName = "Empleados\\Programadores\\RegistroPersonal\\" + nombreRegistro + "Personal.txt";
-            
+
             FileWriter filewriter = new FileWriter(fileName, true);
             BufferedWriter writer = new BufferedWriter(filewriter);
 
@@ -214,7 +215,7 @@ public class Programador extends Trabajador {
     }
 
     //Busca en la base de datos PROPIA de cada programador y retorna las horas trabajadas en un año y mes especifico
-    public static int calcularHorasTrabajadasMes(String nombre, String apellido, LocalDate fechaDesde, LocalDate fechaHasta) throws IOException {
+    public static int calcularHorasTrabajadasMes(String nombre, String apellido, LocalDate fechaDesde, LocalDate fechaHasta, boolean soloHoras) throws IOException {
         try {
             nombre = nombre.toUpperCase();
             apellido = apellido.toUpperCase();
@@ -229,23 +230,30 @@ public class Programador extends Trabajador {
             ArrayList<FechayHoras> fechasProgramador = new ArrayList();
             // Bucle para recorrer el archivo
             while ((linea = reader.readLine()) != null) {
-                if (linea.contains("Fecha") ){
-                   //Guardamos TODAS las fechas en un ArrayList
-                String[] lineaArreglo = linea.split(": |; ");
-                LocalDate fecha = LocalDate.parse(lineaArreglo[1]);
-                int horas = Integer.parseInt(lineaArreglo[3]);
-                FechayHoras fechas = new FechayHoras(fecha, horas);
-                fechasProgramador.add(fechas); 
+                if (linea.contains("Fecha")) {
+                    //Guardamos TODAS las fechas en un ArrayList
+                    String[] lineaArreglo = linea.split(": |; ");
+                    LocalDate fecha = LocalDate.parse(lineaArreglo[1]);
+                    int horas = Integer.parseInt(lineaArreglo[3]);
+                    FechayHoras fechas = new FechayHoras(fecha, horas);
+                    fechasProgramador.add(fechas);
                 }
-                
+
             }
-            
+
             //Ordenamos el ArrayList
             Collections.sort(fechasProgramador, Comparator.comparing(FechayHoras::getFecha));
-            
+
             //Calculamos las horas trabajadas en base a la fecha especifica que el usuario solicita
-            for (FechayHoras fecha : fechasProgramador) {
-                if (fecha.getFecha().compareTo(fechaDesde) >= 0 & fecha.getFecha().compareTo(fechaHasta) <= 0 ) {
+            if (soloHoras) {
+                for (FechayHoras fecha : fechasProgramador) {
+                    if (fecha.getFecha().compareTo(fechaDesde) >= 0 & fecha.getFecha().compareTo(fechaHasta) <= 0) {
+                        horasTrabajadas += fecha.getHoras();
+                    }
+                }
+            } else {
+                for (FechayHoras fecha : fechasProgramador) {
+
                     horasTrabajadas += fecha.getHoras();
                 }
             }
