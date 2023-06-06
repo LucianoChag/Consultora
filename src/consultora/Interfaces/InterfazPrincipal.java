@@ -37,7 +37,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         btonRegistrarEmpleado = new javax.swing.JButton();
         btonRegistrarCliente = new javax.swing.JButton();
         btnLiquidHaberes = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btonCobroCliente = new javax.swing.JButton();
         btonOtrasOpciones = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -78,7 +78,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Cobro Cliente");
+        btonCobroCliente.setText("Cobro Cliente");
+        btonCobroCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btonCobroClienteActionPerformed(evt);
+            }
+        });
 
         btonOtrasOpciones.setText("Otras Opciones");
         btonOtrasOpciones.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +103,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btonRegistrarEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btonOtrasOpciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btonCobroCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLiquidHaberes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btonRegistrarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -118,13 +123,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(btnLiquidHaberes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btonCobroCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btonOtrasOpciones)))
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btonRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonRegistrarEmpleadoActionPerformed
@@ -151,6 +157,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         frame.setVisible(true);
         dispose();
     }//GEN-LAST:event_btonOtrasOpcionesActionPerformed
+
+    private void btonCobroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonCobroClienteActionPerformed
+        InterfazCobroCliente frame = new InterfazCobroCliente();
+        frame.setVisible(true);
+    }//GEN-LAST:event_btonCobroClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,6 +190,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -191,10 +204,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLiquidHaberes;
+    private javax.swing.JButton btonCobroCliente;
     private javax.swing.JButton btonOtrasOpciones;
     private javax.swing.JButton btonRegistrarCliente;
     private javax.swing.JButton btonRegistrarEmpleado;
-    private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables

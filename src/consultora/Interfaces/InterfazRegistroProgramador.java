@@ -44,11 +44,6 @@ public class InterfazRegistroProgramador extends javax.swing.JFrame {
         pxhField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Registro Programadores");
-        // Centrar la ventana en una ubicación específica
-        int x = 550; // Coordenada x del punto de referencia
-        int y = 280; // Coordenada y del punto de referencia
-        setLocation(x - getWidth() / 2, y - getHeight() / 2);
 
         jLabel1.setText("Nombre:");
 
@@ -156,6 +151,7 @@ public class InterfazRegistroProgramador extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreFieldActionPerformed
@@ -212,6 +208,7 @@ public class InterfazRegistroProgramador extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(InterfazRegistroProgramador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

@@ -22,10 +22,10 @@ public class Consultora {
         Map<String, Programador> programadores = new HashMap<>();
         Map<String, Cliente> clientes = new HashMap<>();
 //
-//        double sueldo = Programador.calcularSueldoProgramador("luciano", "Chagnaud");
-//        System.out.println(sueldo);
+        
         InterfazPrincipal frame = new InterfazPrincipal();
         frame.setVisible(true);
+        
 
     }
 

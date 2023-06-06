@@ -41,6 +41,11 @@ public class InterfazLiquidacionHaberes extends javax.swing.JFrame {
         });
 
         btnLiquidAnalista.setText("Liquidación Analista");
+        btnLiquidAnalista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLiquidAnalistaActionPerformed(evt);
+            }
+        });
 
         btnLiquidProgramador.setText("Liquidación Programador");
         btnLiquidProgramador.addActionListener(new java.awt.event.ActionListener() {
@@ -84,6 +89,7 @@ public class InterfazLiquidacionHaberes extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btonVolverActionPerformed
@@ -97,6 +103,11 @@ public class InterfazLiquidacionHaberes extends javax.swing.JFrame {
         frame.setVisible(true);
 
     }//GEN-LAST:event_btnLiquidProgramadorActionPerformed
+
+    private void btnLiquidAnalistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiquidAnalistaActionPerformed
+        InterfazSueldoAnalista frame = new InterfazSueldoAnalista();
+        frame.setVisible(true);
+    }//GEN-LAST:event_btnLiquidAnalistaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,6 +134,7 @@ public class InterfazLiquidacionHaberes extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(InterfazLiquidacionHaberes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

@@ -4,6 +4,12 @@
  */
 package consultora.Interfaces;
 
+import consultora.Programador;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Luciano Chagnaud
@@ -78,40 +84,45 @@ public class InterfazSueldoProgramador extends javax.swing.JFrame {
 
         jLabel4.setText("Calcular hasta fecha: ");
 
-        //Creamos un bucle para generar los items de año
-        String[] itemsAno = new String[24];
-        int ano = 2000;
-        for (int i = 0; i < 24; i++){
-            itemsAno[i] = String.valueOf(ano);
-            ano++;
+        int anio = 2000;
+        String[] anios = new String[24];
+        for(int i = 0; i < 24; i++){
+            anios[i] = String.valueOf(anio);
+            anio++;
         }
-        anoDesde.setModel(new javax.swing.DefaultComboBoxModel<>(itemsAno));
+        anoDesde.setModel(new javax.swing.DefaultComboBoxModel<>(anios));
         anoDesde.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 anoDesdeActionPerformed(evt);
             }
         });
-        //creamos los items de mes
-        String[] itemsMeses = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
-        mesDesde.setModel(new javax.swing.DefaultComboBoxModel<>(itemsMeses));
 
-        //creamos los items de dias con un bucle
-        String[] itemsDias = new String[31];
-        for(int i = 1; i<32; i++){
-            itemsDias[i-1] = String.valueOf(i);
+        int mes = 1;
+        String[] meses = new String[12];
+        for(int i = 0; i < 12; i++){
+            meses[i] = String.valueOf(mes);
+            mes++;
         }
-        diaDesde.setModel(new javax.swing.DefaultComboBoxModel<>(itemsDias));
+        mesDesde.setModel(new javax.swing.DefaultComboBoxModel<>(meses));
 
-        anoHasta.setModel(new javax.swing.DefaultComboBoxModel<>(itemsAno));
+        int dia = 1;
+        String[] dias = new String[31];
+        for(int i = 0; i < 31; i++){
+            dias[i] = String.valueOf(dia);
+            dia++;
+        }
+        diaDesde.setModel(new javax.swing.DefaultComboBoxModel<>(dias));
+
+        anoHasta.setModel(new javax.swing.DefaultComboBoxModel<>(anios));
         anoHasta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 anoHastaActionPerformed(evt);
             }
         });
 
-        mesHasta.setModel(new javax.swing.DefaultComboBoxModel<>(itemsMeses));
+        mesHasta.setModel(new javax.swing.DefaultComboBoxModel<>(meses));
 
-        diaHasta.setModel(new javax.swing.DefaultComboBoxModel<>(itemsDias));
+        diaHasta.setModel(new javax.swing.DefaultComboBoxModel<>(dias));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -198,6 +209,7 @@ public class InterfazSueldoProgramador extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreFieldActionPerformed
@@ -209,14 +221,30 @@ public class InterfazSueldoProgramador extends javax.swing.JFrame {
     }//GEN-LAST:event_apellidoFieldActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        //Transformamos en String los items seleccionados
-        String itemAnoDesde = anoDesde.getSelectedItem().toString();
-        String itemMesDesde = mesDesde.getSelectedItem().toString();
-        String itemDiaDesde = diaDesde.getSelectedItem().toString();
-        String itemAnoHasta = anoHasta.getSelectedItem().toString();
-        String itemMesHasta = mesHasta.getSelectedItem().toString();
-        String itemDiaHasta = diaHasta.getSelectedItem().toString();
 
+        //Transformamos en String los items seleccionados
+        String nombre = nombreField.getText();
+        String apellido = apellidoField.getText();
+        int itemAnoDesde = Integer.parseInt(anoDesde.getSelectedItem().toString());
+        int itemMesDesde = Integer.parseInt(mesDesde.getSelectedItem().toString());
+        int itemDiaDesde = Integer.parseInt(diaDesde.getSelectedItem().toString());
+        int itemAnoHasta = Integer.parseInt(anoHasta.getSelectedItem().toString());
+        int itemMesHasta = Integer.parseInt(mesHasta.getSelectedItem().toString());
+        int itemDiaHasta = Integer.parseInt(diaHasta.getSelectedItem().toString());
+        
+        
+        //Casteamos a fecha
+        LocalDate fechaDesde = LocalDate.of(itemAnoDesde, itemMesDesde, itemDiaDesde);
+        LocalDate fechaHasta = LocalDate.of(itemAnoHasta, itemMesHasta, itemDiaHasta);
+        
+        try {
+            Programador.calcularSueldoProgramador(nombre, apellido, fechaDesde, fechaHasta);
+        } catch (IOException ex) {
+            Logger.getLogger(InterfazSueldoProgramador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException ex) {
+            Logger.getLogger(InterfazSueldoProgramador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         dispose();
 
     }//GEN-LAST:event_guardarActionPerformed
@@ -258,6 +286,7 @@ public class InterfazSueldoProgramador extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(InterfazSueldoProgramador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

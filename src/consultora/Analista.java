@@ -28,7 +28,7 @@ public class Analista extends Trabajador {
     
 
     //Permite la liquidación de haberes de los analistas
-    public static double calcularSueldoAnalista(String nombre, String apellido) {
+    public static void calcularSueldoAnalista(String nombre, String apellido) {
         //creamos la variable sueldo
         double sueldo = 0; 
         
@@ -45,7 +45,7 @@ public class Analista extends Trabajador {
                 sueldo = 200000;
         }
         
-        return sueldo;
+        JOptionPane.showMessageDialog(null, "Sueldo a liquidar: $" + sueldo);
     }
 
     //Registra a un Analista en la base de datos
@@ -123,7 +123,7 @@ public class Analista extends Trabajador {
                     Analista analista = new Analista(categoria, nombreAnalista, apellidoAnalista, legajo);
 
                     reader.close();
-                    JOptionPane.showMessageDialog(null, "Analista extraido de la base de datos correctamente");
+                    //JOptionPane.showMessageDialog(null, "Analista extraido de la base de datos correctamente");
                     return analista;
                 }
             }
