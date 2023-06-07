@@ -27,19 +27,19 @@
           <Group type="102" attributes="0">
               <EmptySpace min="100" pref="100" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="256" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btonVolver" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="btnLiquidProgramador" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="btonVolver" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="btnLiquidProgramador" min="-2" pref="185" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnLiquidAnalista" max="32767" attributes="0"/>
+                      <Component id="btnLiquidAnalista" pref="185" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,15 +51,11 @@
                   <Component id="btnLiquidAnalista" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnLiquidProgramador" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btonVolver" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace pref="16" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <Component id="btonVolver" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="10" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

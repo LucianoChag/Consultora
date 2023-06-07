@@ -5,3 +5,6 @@ src/consultora/DiasyHoras.java
 *.java
 src/consultora/DiasyHoras.java
 src/consultora/DiasyHoras.java
+/BASE DE DATOS/Empleados/build/
+/BASE DE DATOS/Empleados/dist/
+/BASE DE DATOS/Empleados/nbproject/private/

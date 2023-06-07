@@ -27,10 +27,10 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="guardar" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnCerrar" min="-2" pref="223" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="guardar" min="-2" pref="196" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnCerrar" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -40,17 +40,17 @@
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="nombreField" linkSize="1" alignment="1" min="-2" pref="259" max="-2" attributes="0"/>
-                          <Component id="apellidoField" linkSize="1" alignment="1" min="-2" pref="254" max="-2" attributes="0"/>
-                          <Component id="direccionField" linkSize="1" alignment="1" min="-2" pref="269" max="-2" attributes="0"/>
-                          <Component id="pxhField" linkSize="1" alignment="1" min="-2" pref="181" max="-2" attributes="0"/>
-                          <Component id="horasField" linkSize="1" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="apellidoField" alignment="0" pref="190" max="32767" attributes="0"/>
+                          <Component id="direccionField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="pxhField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="horasField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="nombreField" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

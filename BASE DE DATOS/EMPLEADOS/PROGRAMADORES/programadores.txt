@@ -1,0 +1,2 @@
+Nombre: LUCIANO; Apellido: CHAGNAUD; Legajo: 0001; Sueldo por hora: 500.0; 
+

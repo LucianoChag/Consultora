@@ -65,18 +65,22 @@ public class Programador extends Trabajador {
     public static void calcularSueldoProgramador(String nombre, String apellido, LocalDate fechaDesde, LocalDate fechaHasta) throws IOException, NumberFormatException {
         //creamos la variable sueldo
         double sueldo = 0;
-
+        nombre = nombre.toUpperCase();
+        apellido = apellido.toUpperCase();
+        
         //Extraemos al programador solicitado de la base de datos
-        Programador programador = consultarProgramador(nombre, apellido);
-
+        Programador programador = obtenerProgramador(nombre, apellido);
+        
+        //Obtenemos un ArrayList con las fechas trabajadas por el programador
+        ArrayList<FechasyHoras> fechasProgramador = obtenerArrayFechasTrabajadas(nombre, apellido);
+        
         //Calculamos las horas trabajadas en el año y mes solicitado
-        boolean soloHoras = false;
-        int horas = calcularHorasTrabajadasMes(nombre, apellido, fechaDesde, fechaHasta, soloHoras);
+        int horas = calcularHorasTrabajadas(fechasProgramador, fechaDesde, fechaHasta);
 
         //Calculamos el sueldo que corresponderia en base a las horas trabajadas y cuanto se le paga por hora
         sueldo = programador.getPxh() * horas;
 
-        JOptionPane.showMessageDialog(null, "Sueldo a liquidar: $" + sueldo);
+        JOptionPane.showMessageDialog(null, "Sueldo a liquidar de: " + nombre + " " + apellido + "\n $" + sueldo);
     }
 
     //Registra a un Programador en la base de datos
@@ -96,7 +100,7 @@ public class Programador extends Trabajador {
     public static void baseDeDatosProgramador(Programador prog) throws IOException, FileNotFoundException {
         try {
             // Crear un FileWriter para escribir en el archivo de texto
-            FileWriter fileWriter = new FileWriter("Empleados\\Programadores\\programadores.txt", true);
+            FileWriter fileWriter = new FileWriter("BASE DE DATOS\\EMPLEADOS\\PrOGRAMADORES\\programadores.txt", true);
 
             // Crear un BufferedWriter para escribir en el FileWriter
             BufferedWriter writer = new BufferedWriter(fileWriter);
@@ -124,38 +128,18 @@ public class Programador extends Trabajador {
         }
     }
 
-    //Base de datos PROPIA de cada programador, donde se registran horas y dias trabajados
-    public static void registrarDiaProgramador() throws IOException {
-        String nombre = JOptionPane.showInputDialog("Nombre del programador: ");
-        String apellido = JOptionPane.showInputDialog("Apellido del programador: ");
-
-        nombre = nombre.toUpperCase();
-        apellido = apellido.toUpperCase();
-
-        JOptionPane.showMessageDialog(null, "REGISTRE FECHA TRABAJADA");
-        int ano = Integer.parseInt(JOptionPane.showInputDialog("Año: "));
-        int mes = Integer.parseInt(JOptionPane.showInputDialog("Mes: "));
-        int dia = Integer.parseInt(JOptionPane.showInputDialog("Dia: "));
-        LocalDate fecha = LocalDate.of(ano, mes, dia);
-
-        String horas = JOptionPane.showInputDialog("Ingrese horas trabajadas el " + fecha);
-
-        registrarDiaProgramadorTXT(nombre, apellido, fecha, horas);
-    }
-
     //Funcion en la que podemos escribir en el TXT
     public static void registrarDiaProgramadorTXT(String nombre, String apellido, LocalDate fechaLocalDate, String horas) throws IOException {
         try {
             nombre = nombre.toUpperCase();
             apellido = apellido.toUpperCase();
             String nombreRegistro = nombre + apellido;
-            String fileName = "Empleados\\Programadores\\RegistroPersonal\\" + nombreRegistro + "Personal.txt";
+            String fileName = "BASE DE DATOS\\EMPLEADOS\\PROGRAMADORES\\REGISTRO PERSONAL\\" + nombreRegistro + "Personal.txt";
 
             FileWriter filewriter = new FileWriter(fileName, true);
             BufferedWriter writer = new BufferedWriter(filewriter);
 
             String fecha = fechaLocalDate.toString();
-            fecha = fecha.replace("-", "/");
             writer.write("Fecha: " + fecha + "; ");
             writer.write("horas: " + horas);
             writer.newLine();
@@ -172,13 +156,11 @@ public class Programador extends Trabajador {
     }
 
     //Buscar en la Base de Datos un Programador solicitado por el Usuario
-    public static Programador consultarProgramador(String nombre, String apellido) {
+    public static Programador obtenerProgramador(String nombre, String apellido) {
         try {
-            nombre = nombre.toUpperCase();
-            apellido = apellido.toUpperCase();
 
             // Crear un FileReader para leer el archivo de texto
-            FileReader fileReader = new FileReader("Empleados\\Programadores\\programadores.txt");
+            FileReader fileReader = new FileReader("BASE DE DATOS\\EMPLEADOS\\PrOGRAMADORES\\programadores.txt");
 
             // Crear un BufferedReader para leer el FileReader
             BufferedReader reader = new BufferedReader(fileReader);
@@ -214,56 +196,61 @@ public class Programador extends Trabajador {
         }
     }
 
-    //Busca en la base de datos PROPIA de cada programador y retorna las horas trabajadas en un año y mes especifico
-    public static int calcularHorasTrabajadasMes(String nombre, String apellido, LocalDate fechaDesde, LocalDate fechaHasta, boolean soloHoras) throws IOException {
+    //Busca en la base de datos PROPIA de cada programador y retorna un ArrayList ordenado con las fechas y horas trabajadas por cada programador
+    public static ArrayList<FechasyHoras> obtenerArrayFechasTrabajadas(String nombre, String apellido) throws IOException {
         try {
             nombre = nombre.toUpperCase();
             apellido = apellido.toUpperCase();
-
             String nombreRegistro = nombre + apellido;
-            String fileName = "Empleados\\Programadores\\RegistroPersonal\\" + nombreRegistro + "Personal.txt";
-            int horasTrabajadas = 0;
+            String fileName = "BASE DE DATOS\\EMPLEADOS\\PROGRAMADORES\\REGISTRO PERSONAL\\" + nombreRegistro + "Personal.txt";
             FileReader fileReader = new FileReader(fileName);
             BufferedReader reader = new BufferedReader(fileReader);
 
             String linea;
-            ArrayList<FechayHoras> fechasProgramador = new ArrayList();
+            ArrayList<FechasyHoras> fechasProgramador = new ArrayList();
             // Bucle para recorrer el archivo
             while ((linea = reader.readLine()) != null) {
                 if (linea.contains("Fecha")) {
                     //Guardamos TODAS las fechas en un ArrayList
-                    String[] lineaArreglo = linea.split(": |; ");
+                    String[] lineaArreglo = linea.split(": |; ");                    
                     LocalDate fecha = LocalDate.parse(lineaArreglo[1]);
                     int horas = Integer.parseInt(lineaArreglo[3]);
-                    FechayHoras fechas = new FechayHoras(fecha, horas);
+                    FechasyHoras fechas = new FechasyHoras(fecha, horas);
                     fechasProgramador.add(fechas);
                 }
 
             }
 
             //Ordenamos el ArrayList
-            Collections.sort(fechasProgramador, Comparator.comparing(FechayHoras::getFecha));
-
-            //Calculamos las horas trabajadas en base a la fecha especifica que el usuario solicita
-            if (soloHoras) {
-                for (FechayHoras fecha : fechasProgramador) {
-                    if (fecha.getFecha().compareTo(fechaDesde) >= 0 & fecha.getFecha().compareTo(fechaHasta) <= 0) {
-                        horasTrabajadas += fecha.getHoras();
-                    }
-                }
-            } else {
-                for (FechayHoras fecha : fechasProgramador) {
-
-                    horasTrabajadas += fecha.getHoras();
-                }
-            }
+            Collections.sort(fechasProgramador, Comparator.comparing(FechasyHoras::getFecha));
             reader.close();
-            return horasTrabajadas;
+            return fechasProgramador;
+
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            return 0;
+            return null;
         }
 
+    }
+
+    public static int calcularHorasTrabajadas(ArrayList<FechasyHoras> fechasProgramador, LocalDate fechaDesde, LocalDate fechaHasta) {
+        int horas = 0;
+        //Calculamos las horas trabajadas en base a la fecha especifica que el usuario solicita
+        if (fechaDesde == null & fechaHasta == null) {
+            for (FechasyHoras fecha : fechasProgramador) {
+
+                horas += fecha.getHoras();
+            }
+        } else {
+        //Calculamos las horas trabajadas desde que ingresó a la consultora
+            for (FechasyHoras fecha : fechasProgramador) {
+                if (fecha.getFecha().compareTo(fechaDesde) >= 0 & fecha.getFecha().compareTo(fechaHasta) <= 0) {
+                    horas += fecha.getHoras();
+                }
+            }
+        }
+
+        return horas;
     }
 
 }
