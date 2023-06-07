@@ -199,8 +199,7 @@ public class Programador extends Trabajador {
     //Busca en la base de datos PROPIA de cada programador y retorna un ArrayList ordenado con las fechas y horas trabajadas por cada programador
     public static ArrayList<FechasyHoras> obtenerArrayFechasTrabajadas(String nombre, String apellido) throws IOException {
         try {
-            nombre = nombre.toUpperCase();
-            apellido = apellido.toUpperCase();
+
             String nombreRegistro = nombre + apellido;
             String fileName = "BASE DE DATOS\\EMPLEADOS\\PROGRAMADORES\\REGISTRO PERSONAL\\" + nombreRegistro + "Personal.txt";
             FileReader fileReader = new FileReader(fileName);
