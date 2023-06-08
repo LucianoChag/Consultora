@@ -85,8 +85,6 @@ public class Programador extends Trabajador {
     public static double calcularSueldoProgramador(String nombre, String apellido, LocalDate fechaDesde, LocalDate fechaHasta) throws IOException, NumberFormatException {
         //creamos la variable sueldo
         double sueldo = 0;
-        nombre = nombre.toUpperCase();
-        apellido = apellido.toUpperCase();
         
         //Extraemos al programador solicitado de la base de datos
         Programador programador = obtenerProgramador(nombre, apellido);
@@ -105,9 +103,6 @@ public class Programador extends Trabajador {
 
     //Registra a un Programador en la base de datos
     public static void registrarProgramador(String nombre, String apellido, String legajo, double pxh) throws IOException {
-        //Pasamos los Strings a MAYUSCULAS para estandarizar la base de datos
-        nombre = nombre.toUpperCase();
-        apellido = apellido.toUpperCase();
 
         //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
         Programador programador = new Programador(pxh, nombre, apellido, legajo);
@@ -147,9 +142,7 @@ public class Programador extends Trabajador {
 
     //Funcion en la que podemos escribir en el TXT
     public static void registrarDiaProgramadorTXT(String nombre, String apellido, LocalDate fechaLocalDate, String horas) throws IOException {
-        try {
-            nombre = nombre.toUpperCase();
-            apellido = apellido.toUpperCase();
+        try {            
             String nombreRegistro = nombre + apellido;
             String fileName = "BASE DE DATOS\\EMPLEADOS\\PROGRAMADORES\\REGISTRO PERSONAL\\" + nombreRegistro + "Personal.txt";
 

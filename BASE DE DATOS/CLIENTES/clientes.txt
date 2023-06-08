@@ -1,0 +1,2 @@
+Nombre: MATIAS; Apellido: AGUILAR; Dirección: NEUQUEN 333; Precio por cobrar: $200.0; Horas estimadas proyecto: 50; 
+

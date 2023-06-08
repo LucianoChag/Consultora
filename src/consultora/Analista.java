@@ -58,10 +58,6 @@ public class Analista extends Trabajador {
 
     //Registra a un Analista en la base de datos
     public static void registrarAnalista(String nombre, String apellido, String legajo, String categoria) throws IOException {
-        //Pasamos los Strings a MAYUSCULAS para estandarizar la base de datos
-        nombre = nombre.toUpperCase();
-        apellido = apellido.toUpperCase();
-        
         //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
         Analista analista = new Analista(categoria, nombre, apellido, legajo);
         
@@ -104,9 +100,6 @@ public class Analista extends Trabajador {
     //Buscar en la Base de Datos un Analista solicitado por el Usuario
     public static Analista consultarAnalista(String nombre, String apellido) {
         try {
-            nombre = nombre.toUpperCase();
-            apellido = apellido.toUpperCase();
-            
             // Crear un FileReader para leer el archivo de texto
             FileReader fileReader = new FileReader("BASE DE DATOS\\EMPLEADOS\\ANALISTAS\\analistas.txt");
 
