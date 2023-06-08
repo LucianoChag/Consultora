@@ -8,12 +8,16 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Programador extends Trabajador {
-
-    private int hsTrabajadasTotales;
+    
     private int hsTrabajadasMes;
     private double pxh;
     String registroDiasTrabajados;
+    private double sueldo;
 
+    public Programador() {
+    }
+    
+    
     public Programador(String nombre, String apellido, String legajo) {
         super(nombre, apellido, legajo);
     }
@@ -28,14 +32,30 @@ public class Programador extends Trabajador {
         this.pxh = pxh;
         this.registroDiasTrabajados = registroDiasTrabajados;
     }
+    
+    
+    
+    
 
-    public int getHsTrabajadasTotales() {
-        return hsTrabajadasTotales;
+    public Programador(int hsTrabajadasMes, double pxh, String registroDiasTrabajados, double sueldo, String nombre, String apellido, String legajo) {
+        super(nombre, apellido, legajo);
+        this.hsTrabajadasMes = hsTrabajadasMes;
+        this.pxh = pxh;
+        this.registroDiasTrabajados = registroDiasTrabajados;
+        this.sueldo = sueldo;
+    }
+    
+    
+
+    
+    public double getSueldo() {
+        return sueldo;
     }
 
-    public void setHsTrabajadasTotales(int hsTrabajadasTotales) {
-        this.hsTrabajadasTotales = hsTrabajadasTotales;
+    public void setSueldo(double sueldo) {
+        this.sueldo = sueldo;
     }
+
 
     public int getHsTrabajadasMes() {
         return hsTrabajadasMes;
@@ -62,7 +82,7 @@ public class Programador extends Trabajador {
     }
 
     //Permite la liquidación de haberes de los programadores
-    public static void calcularSueldoProgramador(String nombre, String apellido, LocalDate fechaDesde, LocalDate fechaHasta) throws IOException, NumberFormatException {
+    public static double calcularSueldoProgramador(String nombre, String apellido, LocalDate fechaDesde, LocalDate fechaHasta) throws IOException, NumberFormatException {
         //creamos la variable sueldo
         double sueldo = 0;
         nombre = nombre.toUpperCase();
@@ -79,8 +99,8 @@ public class Programador extends Trabajador {
 
         //Calculamos el sueldo que corresponderia en base a las horas trabajadas y cuanto se le paga por hora
         sueldo = programador.getPxh() * horas;
-
-        JOptionPane.showMessageDialog(null, "Sueldo a liquidar de: " + nombre + " " + apellido + "\n $" + sueldo);
+        return sueldo;
+        
     }
 
     //Registra a un Programador en la base de datos
@@ -99,23 +119,20 @@ public class Programador extends Trabajador {
     //Base de datos de los programadores
     public static void baseDeDatosProgramador(Programador prog) throws IOException, FileNotFoundException {
         try {
+            String file = "BASE DE DATOS\\EMPLEADOS\\PROGRAMADORES\\";
+            String nombreRegistro = prog.getNombre() + prog.getApellido();
             // Crear un FileWriter para escribir en el archivo de texto
-            FileWriter fileWriter = new FileWriter("BASE DE DATOS\\EMPLEADOS\\PrOGRAMADORES\\programadores.txt", true);
+            FileWriter fileWriter = new FileWriter(file + "programadores.txt", true);
 
             // Crear un BufferedWriter para escribir en el FileWriter
             BufferedWriter writer = new BufferedWriter(fileWriter);
 
-            // Obtener los atributos del analista
-            String nombre = prog.getNombre();
-            String apellido = prog.getApellido();
-            String legajo = prog.getLegajo();
-            double precioPorHora = prog.getPxh();
-
             // Escribir los atributos en el archivo de texto
-            writer.write("Nombre: " + nombre + "; ");
-            writer.write("Apellido: " + apellido + "; ");
-            writer.write("Legajo: " + legajo + "; ");
-            writer.write("Sueldo por hora: " + precioPorHora + "; ");
+            writer.write("Nombre: " + prog.getNombre() + "; ");
+            writer.write("Apellido: " + prog.getApellido() + "; ");
+            writer.write("Legajo: " + prog.getLegajo() + "; ");
+            writer.write("Sueldo por hora: " + prog.getPxh() + "; ");
+            writer.write("Registro Personal: " + file + "REGISTRO PERSONAL\\" + nombreRegistro + ".txt");
             writer.newLine();
             writer.newLine();
 
@@ -160,7 +177,7 @@ public class Programador extends Trabajador {
         try {
 
             // Crear un FileReader para leer el archivo de texto
-            FileReader fileReader = new FileReader("BASE DE DATOS\\EMPLEADOS\\PrOGRAMADORES\\programadores.txt");
+            FileReader fileReader = new FileReader("BASE DE DATOS\\EMPLEADOS\\PROGRAMADORES\\programadores.txt");
 
             // Crear un BufferedReader para leer el FileReader
             BufferedReader reader = new BufferedReader(fileReader);
@@ -178,9 +195,10 @@ public class Programador extends Trabajador {
                     String apellidoProgramador = atributos[3];
                     String legajo = atributos[5];
                     double pxh = Double.parseDouble(atributos[7]);
+                    String registro = atributos[9];
 
                     // Crear un nuevo objeto Programador con los atributos leídos
-                    Programador programador = new Programador(pxh, nombreProgramador, apellidoProgramador, legajo);
+                    Programador programador = new Programador(pxh, registro, nombreProgramador, apellidoProgramador, legajo);
 
                     reader.close();
                     return programador;
