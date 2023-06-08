@@ -1,2 +1,0 @@
-Nombre: JUAN; Apellido: FILIPPINI; Legajo: 0002; Categoria: Inicial; 
-

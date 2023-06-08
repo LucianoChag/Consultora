@@ -132,7 +132,7 @@ public class Programador extends Trabajador {
             writer.write("Apellido: " + prog.getApellido() + "; ");
             writer.write("Legajo: " + prog.getLegajo() + "; ");
             writer.write("Sueldo por hora: " + prog.getPxh() + "; ");
-            writer.write("Registro Personal: " + file + "REGISTRO PERSONAL\\" + nombreRegistro + ".txt");
+            writer.write("Registro Personal: " + file + "REGISTRO PERSONAL\\" + nombreRegistro + "Personal.txt");
             writer.newLine();
             writer.newLine();
 
