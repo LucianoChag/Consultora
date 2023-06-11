@@ -1,2 +1,10 @@
 Nombre: ROCIO; Apellido: CALVETE; Legajo: 0; Categoria: Intermedio; 
 
+Nombre: LUCAS; Apellido: BURGOS; Legajo: 1234; Categoria: Inicial; 
+
+Nombre: LUCIANO; Apellido: CHAGNAUD; Legajo: 4321; Categoria: Inicial; 
+
+Nombre: FRANCO; Apellido: VIDELA; Legajo: 5678; Categoria: Inicial; 
+
+Nombre: PILAR; Apellido: NAVARRO; Legajo: 4567; Categoria: Inicial; 
+

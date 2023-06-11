@@ -8,6 +8,7 @@ import consultora.Programador;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -174,7 +175,6 @@ public class RegistroProgramador extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(RegistroProgramador.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         
         dispose();
 

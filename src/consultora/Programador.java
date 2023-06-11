@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Programador extends Trabajador {
-    
+
     private int hsTrabajadasMes;
     private double pxh;
     String registroDiasTrabajados;
@@ -16,8 +16,7 @@ public class Programador extends Trabajador {
 
     public Programador() {
     }
-    
-    
+
     public Programador(String nombre, String apellido, String legajo) {
         super(nombre, apellido, legajo);
     }
@@ -32,10 +31,6 @@ public class Programador extends Trabajador {
         this.pxh = pxh;
         this.registroDiasTrabajados = registroDiasTrabajados;
     }
-    
-    
-    
-    
 
     public Programador(int hsTrabajadasMes, double pxh, String registroDiasTrabajados, double sueldo, String nombre, String apellido, String legajo) {
         super(nombre, apellido, legajo);
@@ -44,10 +39,7 @@ public class Programador extends Trabajador {
         this.registroDiasTrabajados = registroDiasTrabajados;
         this.sueldo = sueldo;
     }
-    
-    
 
-    
     public double getSueldo() {
         return sueldo;
     }
@@ -55,7 +47,6 @@ public class Programador extends Trabajador {
     public void setSueldo(double sueldo) {
         this.sueldo = sueldo;
     }
-
 
     public int getHsTrabajadasMes() {
         return hsTrabajadasMes;
@@ -85,30 +76,36 @@ public class Programador extends Trabajador {
     public static double calcularSueldoProgramador(String nombre, String apellido, LocalDate fechaDesde, LocalDate fechaHasta) throws IOException, NumberFormatException {
         //creamos la variable sueldo
         double sueldo = 0;
-        
+
         //Extraemos al programador solicitado de la base de datos
         Programador programador = obtenerProgramador(nombre, apellido);
-        
+
         //Obtenemos un ArrayList con las fechas trabajadas por el programador
         ArrayList<FechasyHoras> fechasProgramador = obtenerArrayFechasTrabajadas(nombre, apellido);
-        
+
         //Calculamos las horas trabajadas en el año y mes solicitado
         int horas = calcularHorasTrabajadas(fechasProgramador, fechaDesde, fechaHasta);
 
         //Calculamos el sueldo que corresponderia en base a las horas trabajadas y cuanto se le paga por hora
         sueldo = programador.getPxh() * horas;
         return sueldo;
-        
+
     }
 
     //Registra a un Programador en la base de datos
     public static void registrarProgramador(String nombre, String apellido, String legajo, double pxh) throws IOException {
 
         //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
-        Programador programador = new Programador(pxh, nombre, apellido, legajo);
+        boolean valido = validar(nombre, apellido, pxh);
 
-        // Guardamos los datos en la base de datos
-        baseDeDatosProgramador(programador);
+        if (valido) {
+
+            Programador programador = new Programador(pxh, nombre, apellido, legajo);
+
+            // Guardamos los datos en la base de datos
+            baseDeDatosProgramador(programador);
+
+        }
     }
 
     //Base de datos de los programadores
@@ -142,25 +139,38 @@ public class Programador extends Trabajador {
 
     //Funcion en la que podemos escribir en el TXT
     public static void registrarDiaProgramadorTXT(String nombre, String apellido, LocalDate fechaLocalDate, String horas) throws IOException {
-        try {            
-            String nombreRegistro = nombre + apellido;
-            String fileName = "BASE DE DATOS\\EMPLEADOS\\PROGRAMADORES\\REGISTRO PERSONAL\\" + nombreRegistro + "Personal.txt";
 
-            FileWriter filewriter = new FileWriter(fileName, true);
-            BufferedWriter writer = new BufferedWriter(filewriter);
+        if ("".equals(nombre) || "".equals(apellido) || "".equals(horas) || fechaLocalDate.isEqual(LocalDate.of(2000, 1, 1)) || horas == null) {
+            JOptionPane.showMessageDialog(null, "Debe completar correctamente todos los campos");
+            return;
+        }
 
-            String fecha = fechaLocalDate.toString();
-            writer.write("Fecha: " + fecha + "; ");
-            writer.write("horas: " + horas);
-            writer.newLine();
-            writer.newLine();
+        Programador p = obtenerProgramador(nombre, apellido);
 
-            // Cerrar el BufferedWriter
-            writer.close();
+        if (p != null) {
+            try {
+                String nombreRegistro = nombre + apellido;
+                String fileName = "BASE DE DATOS\\EMPLEADOS\\PROGRAMADORES\\REGISTRO PERSONAL\\" + nombreRegistro + "Personal.txt";
 
-            JOptionPane.showMessageDialog(null, "Registro existoso");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error en el registro" + e.getMessage());
+                FileWriter filewriter = new FileWriter(fileName, true);
+                BufferedWriter writer = new BufferedWriter(filewriter);
+
+                String fecha = fechaLocalDate.toString();
+                writer.write("Fecha: " + fecha + "; ");
+                writer.write("horas: " + horas);
+                writer.newLine();
+                writer.newLine();
+
+                // Cerrar el BufferedWriter
+                writer.close();
+
+                JOptionPane.showMessageDialog(null, "Registro existoso");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error en el registro" + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe un programador registrado con esos datos.");
+            return;
         }
 
     }
@@ -222,7 +232,7 @@ public class Programador extends Trabajador {
             while ((linea = reader.readLine()) != null) {
                 if (linea.contains("Fecha")) {
                     //Guardamos TODAS las fechas en un ArrayList
-                    String[] lineaArreglo = linea.split(": |; ");                    
+                    String[] lineaArreglo = linea.split(": |; ");
                     LocalDate fecha = LocalDate.parse(lineaArreglo[1]);
                     int horas = Integer.parseInt(lineaArreglo[3]);
                     FechasyHoras fechas = new FechasyHoras(fecha, horas);
@@ -252,7 +262,7 @@ public class Programador extends Trabajador {
                 horas += fecha.getHoras();
             }
         } else {
-        //Calculamos las horas trabajadas desde que ingresó a la consultora
+            //Calculamos las horas trabajadas desde que ingresó a la consultora
             for (FechasyHoras fecha : fechasProgramador) {
                 if (fecha.getFecha().compareTo(fechaDesde) >= 0 & fecha.getFecha().compareTo(fechaHasta) <= 0) {
                     horas += fecha.getHoras();
@@ -261,6 +271,31 @@ public class Programador extends Trabajador {
         }
 
         return horas;
+    }
+
+    public static boolean validar(String nombre, String apellido, double precio) {
+
+        // Verificar si el nombre o apellido están vacíos o son nulos
+        if (nombre == null || apellido == null || nombre.equals("") || apellido.equals("")) {
+            JOptionPane.showMessageDialog(null, "El nombre o apellido están vacíos, ingrese uno válido");
+            return false; // Si la condición se cumple, se muestra un mensaje y se retorna false
+        }
+
+        Programador existe = obtenerProgramador(nombre, apellido); // Consultar si existe un programador con el nombre y apellido dados
+        boolean esValido = false;
+
+        // Verificar si no se encontró un programador con el mismo nombre y apellido
+        if (existe == null) {
+            esValido = true; // Si no se encontró, se marca como válido
+        }
+
+        // Mostrar un mensaje si los datos ya están registrados en la base de datos
+        if (!esValido) {
+            JOptionPane.showMessageDialog(null, "Los datos ingresados ya están registrados en nuestra base de datos.");
+        }
+
+        return esValido; // Retornar el valor de esValido (true si es válido, false si no)
+
     }
 
 }

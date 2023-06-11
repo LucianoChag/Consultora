@@ -1,2 +1,4 @@
-Nombre: MATIAS; Apellido: AGUILAR; Dirección: NEUQUEN 333; Precio por cobrar: $200.0; Horas estimadas proyecto: 50; 
+Nombre: MATIAS; Apellido: AGUILAR; Dirección: NEUQUEN 333; Precio por cobrar: $200.0; Horas estimadas proyecto: 1200; 
+
+Nombre: JUAN; Apellido: PEREZ; Dirección: DORREGO 123; Precio por cobrar: $500.0; Horas estimadas proyecto: 650; 
 

@@ -3,7 +3,6 @@ package consultora;
 import java.io.*;
 import javax.swing.*;
 
-
 public class Cliente {
 
     private String nombre;
@@ -30,8 +29,6 @@ public class Cliente {
     public void setHorasEstimadas(int horasEstimadas) {
         this.horasEstimadas = horasEstimadas;
     }
-
-    
 
     public String getNombre() {
         return nombre;
@@ -67,11 +64,17 @@ public class Cliente {
 
     //Registra a un Cliente en la base de datos        
     public static void registrarCliente(String nombre, String apellido, String direccion, double pxh, int horasEstimadas) throws IOException {
-        //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
-        Cliente cliente = new Cliente(nombre, apellido, direccion, pxh, horasEstimadas);
 
-        //Guardamos los atributos del objeto en una base de datos (TXT)
-        baseDeDatosCliente(cliente);
+        boolean valido = validar(nombre, apellido);
+
+        if (valido) {
+            //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
+            Cliente cliente = new Cliente(nombre, apellido, direccion, pxh, horasEstimadas);
+
+            //Guardamos los atributos del objeto en una base de datos (TXT)
+            baseDeDatosCliente(cliente);
+        }
+
     }
 
     //Base de datos de los clientes
@@ -111,7 +114,7 @@ public class Cliente {
     //Buscar en la Base de Datos un Cliente solicitado por el Usuario
     public static Cliente consultarCliente(String nombre, String apellido) {
         try {
-            
+
             // Crear un FileReader para leer el archivo de texto
             FileReader fileReader = new FileReader("BASE DE DATOS\\CLIENTES\\clientes.txt");
 
@@ -134,8 +137,8 @@ public class Cliente {
                     double Pxcobrar = Double.parseDouble(PxcobrarString);
                     int horasEstimadas = Integer.parseInt(atributos[9]);
                     // Crear un nuevo objeto Cliente con los atributos leídos
-                    Cliente cliente = new Cliente(nombreCliente, apellidoCliente, direccion, Pxcobrar,horasEstimadas);
-                    reader.close();                    
+                    Cliente cliente = new Cliente(nombreCliente, apellidoCliente, direccion, Pxcobrar, horasEstimadas);
+                    reader.close();
                     return cliente;
                 }
             }
@@ -148,9 +151,42 @@ public class Cliente {
             return null;
         }
     }
-    
-    public static void cobrarCliente (String nombre, String apellido){
+
+    public static void cobrarCliente(String nombre, String apellido) {
+
+        if (nombre.equals("") || apellido.equals("")) {
+            JOptionPane.showMessageDialog(null, "El nombre o apellido están vacíos, ingrese uno válido");
+            return;
+        }
+
         Cliente cliente = consultarCliente(nombre, apellido);
-        JOptionPane.showMessageDialog(null, "El presupuesto estimado es de: $ " + cliente.getHorasEstimadas() * cliente.getPxcobrar());
+
+        if (cliente == null) {
+            JOptionPane.showMessageDialog(null, "El cliente ingresado no se encuentra en la base de datos.");
+        } else {
+            JOptionPane.showMessageDialog(null, "El presupuesto estimado es de: $ " + cliente.getHorasEstimadas() * cliente.getPxcobrar());
+        }
+
     }
+
+    public static boolean validar(String nombre, String apellido) {
+        if (nombre.equals("") || apellido.equals("")) {
+            JOptionPane.showMessageDialog(null, "El nombre o apellido están vacíos, ingrese uno válido");
+            return false;
+        }
+
+        Cliente existe = consultarCliente(nombre, apellido);
+        boolean esValido = false;
+
+        if (existe == null) {
+            esValido = true;
+        }
+
+        if (!esValido) {
+            JOptionPane.showMessageDialog(null, "Los datos ingresados ya están registrados en nuestra base de datos.");
+        }
+
+        return esValido;
+    }
+
 }

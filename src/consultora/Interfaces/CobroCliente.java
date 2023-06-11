@@ -116,6 +116,7 @@ public class CobroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        
         String nombre = nombreField.getText().toUpperCase().trim();
         String apellido = apellidoField.getText().toUpperCase().trim();
 

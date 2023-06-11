@@ -10,8 +10,6 @@ public class Analista extends Trabajador {
 
     public Analista() {
     }
-    
-    
 
     public Analista(String nombre, String apellido, String legajo) {
         super(nombre, apellido, legajo);
@@ -30,18 +28,16 @@ public class Analista extends Trabajador {
         this.categoria = categoria;
     }
 
-    
-
     //Permite la liquidación de haberes de los analistas
     public static double calcularSueldoAnalista(String nombre, String apellido) {
         //creamos la variable sueldo
-        double sueldo = 0; 
-        
+        double sueldo = 0;
+
         //Extraemos de la base de datos el analista solicitado
         Analista analista = consultarAnalista(nombre, apellido);
-        
+
         //Calculamos el sueldo en base a su categoria
-        switch (analista.getCategoria()){
+        switch (analista.getCategoria()) {
             case "Inicial" ->
                 sueldo = 70000;
             case "Intermedio" ->
@@ -52,17 +48,21 @@ public class Analista extends Trabajador {
                 sueldo = 500000;
         }
         return sueldo;
-        
-        
+
     }
 
     //Registra a un Analista en la base de datos
     public static void registrarAnalista(String nombre, String apellido, String legajo, String categoria) throws IOException {
         //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
-        Analista analista = new Analista(categoria, nombre, apellido, legajo);
-        
-        //Guardar los analistas en una base de datos (txt)
-        baseDeDatosAnalista(analista);
+
+        boolean valido = validar(nombre, apellido);
+
+        if (valido) {
+            Analista analista = new Analista(categoria, nombre, apellido, legajo);
+
+            //Guardar los analistas en una base de datos (txt)
+            baseDeDatosAnalista(analista);
+        }
     }
 
     //Base de datos de los analistas
@@ -119,7 +119,7 @@ public class Analista extends Trabajador {
                     String apellidoAnalista = atributos[3];
                     String legajo = atributos[5];
                     String categoria = atributos[7];
-                    
+
                     // Crear un nuevo objeto Analista con los atributos leídos
                     Analista analista = new Analista(categoria, nombreAnalista, apellidoAnalista, legajo);
 
@@ -136,5 +136,31 @@ public class Analista extends Trabajador {
             JOptionPane.showMessageDialog(null, "Error al extraer analista de la base de datos. " + e.getMessage());
             return null;
         }
+
+    }
+
+    public static boolean validar(String nombre, String apellido) {
+
+        // Verificar si el nombre o apellido están vacíos o son nulos
+        if (nombre == null || apellido == null || nombre.equals("") || apellido.equals("")) {
+            JOptionPane.showMessageDialog(null, "El nombre o apellido están vacíos, ingrese uno válido");
+            return false; // Si la condición se cumple, se muestra un mensaje y se retorna false
+        }
+
+        Analista existe = consultarAnalista(nombre, apellido); // Consultar si existe un analista con el nombre y apellido dados
+        boolean esValido = false;
+
+        // Verificar si no se encontró un analista con el mismo nombre y apellido
+        if (existe == null) {
+            esValido = true; // Si no se encontró, se marca como válido
+        }
+
+        // Mostrar un mensaje si los datos ya están registrados en la base de datos
+        if (!esValido) {
+            JOptionPane.showMessageDialog(null, "Los datos ingresados ya están registrados en nuestra base de datos.");
+        }
+
+        return esValido; // Retornar el valor de esValido (true si es válido, false si no)
+
     }
 }
