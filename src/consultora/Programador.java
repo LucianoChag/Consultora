@@ -95,7 +95,7 @@ public class Programador extends Trabajador {
     //Registra a un Programador en la base de datos
     public static void registrarProgramador(String nombre, String apellido, String legajo, double pxh) throws IOException {
 
-        //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
+        //Validamos si el programador existe en la base de datos previamente
         boolean valido = validar(nombre, apellido, pxh);
 
         if (valido) {
@@ -137,7 +137,7 @@ public class Programador extends Trabajador {
         }
     }
 
-    //Funcion en la que podemos escribir en el TXT
+    //Registramos en un txt las fechas y horas trabajadas
     public static void registrarDiaProgramadorTXT(String nombre, String apellido, LocalDate fechaLocalDate, String horas) throws IOException {
 
         if ("".equals(nombre) || "".equals(apellido) || "".equals(horas) || fechaLocalDate.isEqual(LocalDate.of(2000, 1, 1)) || horas == null) {
@@ -170,7 +170,7 @@ public class Programador extends Trabajador {
             }
         } else {
             JOptionPane.showMessageDialog(null, "No existe un programador registrado con esos datos.");
-            return;
+
         }
 
     }
@@ -240,19 +240,18 @@ public class Programador extends Trabajador {
                 }
 
             }
-
             //Ordenamos el ArrayList
             Collections.sort(fechasProgramador, Comparator.comparing(FechasyHoras::getFecha));
             reader.close();
             return fechasProgramador;
-
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return null;
         }
 
     }
-
+    
+    //Calculamos las horas trabajadas del programador en base a un periodo de tiempo
     public static int calcularHorasTrabajadas(ArrayList<FechasyHoras> fechasProgramador, LocalDate fechaDesde, LocalDate fechaHasta) {
         int horas = 0;
         //Calculamos las horas trabajadas en base a la fecha especifica que el usuario solicita

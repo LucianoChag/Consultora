@@ -2,7 +2,6 @@ package consultora;
 
 import java.io.*;
 import javax.swing.*;
-import java.util.Map;
 
 public class Analista extends Trabajador {
 
@@ -53,8 +52,8 @@ public class Analista extends Trabajador {
 
     //Registra a un Analista en la base de datos
     public static void registrarAnalista(String nombre, String apellido, String legajo, String categoria) throws IOException {
-        //Instanciamos un nuevo objeto cliente con los datos obtenidos de la interfaz
-
+      
+        //Corroboramos que el analista no exista previamente en la base de datos
         boolean valido = validar(nombre, apellido);
 
         if (valido) {

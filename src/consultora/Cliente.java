@@ -151,7 +151,7 @@ public class Cliente {
             return null;
         }
     }
-
+    //Permite calcular cuanto se le cobrara al cliente, con un presupuesto estimado
     public static void cobrarCliente(String nombre, String apellido) {
 
         if (nombre.equals("") || apellido.equals("")) {
@@ -168,7 +168,7 @@ public class Cliente {
         }
 
     }
-
+    //Validamos si el cliente ya existe
     public static boolean validar(String nombre, String apellido) {
         if (nombre.equals("") || apellido.equals("")) {
             JOptionPane.showMessageDialog(null, "El nombre o apellido están vacíos, ingrese uno válido");
