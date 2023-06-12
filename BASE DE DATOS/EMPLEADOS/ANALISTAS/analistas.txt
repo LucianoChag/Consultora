@@ -1,10 +1,20 @@
-Nombre: ROCIO; Apellido: CALVETE; Legajo: 0; Categoria: Intermedio; 
+Nombre: LEANDRO; Apellido: CRUZ; Legajo: 001; Categoria: Inicial; 
 
-Nombre: LUCAS; Apellido: BURGOS; Legajo: 1234; Categoria: Inicial; 
+Nombre: JUAN; Apellido: PEREZ; Legajo: 002; Categoria: Superior; 
 
-Nombre: LUCIANO; Apellido: CHAGNAUD; Legajo: 4321; Categoria: Inicial; 
+Nombre: PEDRO; Apellido: PASCAL; Legajo: 003; Categoria: Senior; 
 
-Nombre: FRANCO; Apellido: VIDELA; Legajo: 5678; Categoria: Inicial; 
+Nombre: PABLO; Apellido: MINUZZI; Legajo: 004; Categoria: Intermedio; 
 
-Nombre: PILAR; Apellido: NAVARRO; Legajo: 4567; Categoria: Inicial; 
+Nombre: FRANCO; Apellido: PEREYRA; Legajo: 005; Categoria: Inicial; 
+
+Nombre: LUCIANA; Apellido: ALVAREZ; Legajo: 006; Categoria: Superior; 
+
+Nombre: CARLA; Apellido: DIAZ; Legajo: 007; Categoria: Inicial; 
+
+Nombre: PEDRO; Apellido: GONZALEZ; Legajo: 008; Categoria: Intermedio; 
+
+Nombre: LUCIA; Apellido: BENITEZ; Legajo: 009; Categoria: Superior; 
+
+Nombre: LORENZO; Apellido: SALVATIERRA; Legajo: 010; Categoria: Inicial; 
 

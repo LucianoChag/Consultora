@@ -1,4 +1,12 @@
-Nombre: MATIAS; Apellido: AGUILAR; Dirección: NEUQUEN 333; Precio por cobrar: $200.0; Horas estimadas proyecto: 1200; 
+Nombre: ILARDO; Apellido: LOPEZ; Dirección: BORGES 333; Precio por cobrar: $1800.0; Horas estimadas proyecto: 150; 
 
-Nombre: JUAN; Apellido: PEREZ; Dirección: DORREGO 123; Precio por cobrar: $500.0; Horas estimadas proyecto: 650; 
+Nombre: MARIO; Apellido: PERGOLINI; Dirección: AVENIDA SIEMPRE VIVA 743; Precio por cobrar: $1500.0; Horas estimadas proyecto: 70; 
+
+Nombre: JESUS; Apellido: DATOLO; Dirección: MORON 456; Precio por cobrar: $1600.0; Horas estimadas proyecto: 100; 
+
+Nombre: LAURA; Apellido: FRANCESCOLI; Dirección: DIEGO MILITO 332; Precio por cobrar: $2200.0; Horas estimadas proyecto: 90; 
+
+Nombre: PEDRO; Apellido: ARANDA; Dirección: SAN MARTIN SUR 1450; Precio por cobrar: $1200.0; Horas estimadas proyecto: 65; 
+
+Nombre: LUCRECIA; Apellido: BENITEZ; Dirección: CASTELLI 989; Precio por cobrar: $2300.0; Horas estimadas proyecto: 132; 
 
