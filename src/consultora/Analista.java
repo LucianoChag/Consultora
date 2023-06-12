@@ -122,8 +122,7 @@ public class Analista extends Trabajador {
                     // Crear un nuevo objeto Analista con los atributos leídos
                     Analista analista = new Analista(categoria, nombreAnalista, apellidoAnalista, legajo);
 
-                    reader.close();
-                    //JOptionPane.showMessageDialog(null, "Analista extraido de la base de datos correctamente");
+                    reader.close();                    
                     return analista;
                 }
             }
@@ -139,7 +138,6 @@ public class Analista extends Trabajador {
     }
 
     public static boolean validar(String nombre, String apellido) {
-
         // Verificar si el nombre o apellido están vacíos o son nulos
         if (nombre == null || apellido == null || nombre.equals("") || apellido.equals("")) {
             JOptionPane.showMessageDialog(null, "El nombre o apellido están vacíos, ingrese uno válido");

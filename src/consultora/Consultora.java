@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Consultora {
-
+    
+    //Obtenemos un array de Programadores
     public static ArrayList<Programador> obtenerArrayProgramadores() throws IOException {
         try {
             ArrayList<Programador> programadores = new ArrayList();
@@ -18,7 +19,6 @@ public class Consultora {
 
             // Crear un BufferedReader para leer el FileReader
             BufferedReader reader = new BufferedReader(fileReader);
-
             String linea;
             //Bucle para recorrer el archivo
             while ((linea = reader.readLine()) != null) {
@@ -37,9 +37,7 @@ public class Consultora {
 
                     //Agregamos al programador al ArrayList
                     programadores.add(programador);
-
                 }
-
             }
             reader.close();
             return programadores;

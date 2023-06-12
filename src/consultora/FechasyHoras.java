@@ -1,4 +1,3 @@
-
 package consultora;
 
 import java.time.LocalDate;
